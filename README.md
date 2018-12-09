@@ -1,0 +1,1 @@
+# RiceDiseaseDtection_bdFarmer
