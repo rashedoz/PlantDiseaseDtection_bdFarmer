@@ -1,7 +1,17 @@
 
-%I = imread('N:/Rice Detection/CrowdAI (plant disease dataset)/crowdai/c_7/8665d5b5-d53d-4501-a6bb-011e6ee1ed61___RS_GLSp 4651 copy 2.jpg');
+I1 = imread('N:/Rice Detection/CrowdAI (plant disease dataset)/crowdai/c_7/8665d5b5-d53d-4501-a6bb-011e6ee1ed61___RS_GLSp 4651 copy 2.jpg');
 
 I= imread('Rice blast images/rice-blast-leaf-lesions-lsu.jpg');
+b1 = imread('Rice blast images\blast-leaf.jpg');
+b2 = imread('Rice blast images\blast-leaf-2.jpg');
+b3 = imread('Rice blast images\blast-leaf-4.jpg');
+
+I_r = imresize(b2,[256,256]);
+figure
+subplot(2,1,1)
+imshow(b2)
+subplot(2,1,2)
+imshow(I_r)
 
 %%  Convert to grayscale
     
@@ -14,8 +24,23 @@ I= imread('Rice blast images/rice-blast-leaf-lesions-lsu.jpg');
     level = 0.5937;
     figure('Name',"Acquired Image")
     Ithresh = im2bw(igray,level);
-    imshowpair(I2,Ithresh,'montage')
+    imshowpair(I,Ithresh,'montage')
     
+%%  Binary Image
+    BW = imbinarize(igray,0.6);
+    figure
+    imshowpair(I,BW,'montage')
+
+%% Contour Image
+    mask = zeros(size(BW));
+    mask(25:end-25,25:end-25) = 1;
+    figure
+    imshow(mask)
+    title('Initial Contour Location')
+    bw = activecontour(BW,mask,300);
+    figure
+    imshow(bw)
+    title('Segmented Image')
 %% Blurr Image using Gausian filter 
 
 Iblur = imgaussfilt(I, 2);
