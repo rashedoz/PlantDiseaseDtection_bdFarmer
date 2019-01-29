@@ -9,19 +9,21 @@ Dropmark Links-> https://rashedoz.dropmark.com/592180
 GCP Steps->
 
 Cmd:
-'''
+
+
+```
 source activate tf_gpu
 jupyter-notebook --no-browser --port=8123
-'''
+```
 
 
 (tf_gpu) yaan_uchiha29@r-gpu:~$
 
 
 Tensorboard:
-'''
+```
 	tensorboard --logdir='logs/'
-'''
+```
 Notebook:
 
 Running Notebook:
