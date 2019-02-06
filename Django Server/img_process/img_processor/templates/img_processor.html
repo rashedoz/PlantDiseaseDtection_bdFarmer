@@ -6,5 +6,45 @@
 	{{ a }}
 
 
+
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAH3LvK1bKBXirEI7AtkDJYvivHVBeip0s",
+    authDomain: "diseasedetect-e39f6.firebaseapp.com",
+    databaseURL: "https://diseasedetect-e39f6.firebaseio.com",
+    projectId: "diseasedetect-e39f6",
+    storageBucket: "diseasedetect-e39f6.appspot.com",
+    messagingSenderId: "165293326729"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script >
+
+	var fileId = 1;
+    var file_name = "as";
+    var file = "{{ str }}"
+    console.log(file)
+    
+
+   	var storageRef = firebase.storage().ref();
+   	// Create a reference to 'mountains.jpg'
+	var mountainsRef = storageRef.child('segmented.jpg');
+
+ // 	var task = storageRef.ref.putString(file, 'base64').then(function(snapshot) {
+ //  			console.log('Uploaded a base64 string!');
+	// });
+ // 	console.log("Up[loading");
+ mountainsRef.putString(file, 'base64url').then(function(snapshot) {
+  console.log('Uploaded a base64url string!');
+});
+
+
+
+	
+</script>
+
 </body>
 </html>
