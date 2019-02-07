@@ -4,6 +4,8 @@
 
 	<h2>Image Shape:</h2>
 	{{ a }}
+  <h2>Prediction :</h2>
+  {{ prediction }}
 
 
 
@@ -23,24 +25,33 @@
 
 <script >
 
-	var fileId = 1;
-    var file_name = "as";
-    var file = "{{ str }}"
-    console.log(file)
+// 	var fileId = 1;
+//     var file_name = "as";
+//     var file = "{{ str }}"
+//     console.log(file)
     
 
-   	var storageRef = firebase.storage().ref();
-   	// Create a reference to 'mountains.jpg'
-	var mountainsRef = storageRef.child('segmented.jpg');
+//    	var storageRef = firebase.storage().ref();
+//    	// Create a reference to 'mountains.jpg'
+// 	var mountainsRef = storageRef.child('segmented.jpg');
 
- // 	var task = storageRef.ref.putString(file, 'base64').then(function(snapshot) {
- //  			console.log('Uploaded a base64 string!');
-	// });
- // 	console.log("Up[loading");
- mountainsRef.putString(file, 'base64url').then(function(snapshot) {
-  console.log('Uploaded a base64url string!');
-});
-
+//  // 	var task = storageRef.ref.putString(file, 'base64').then(function(snapshot) {
+//  //  			console.log('Uploaded a base64 string!');
+// 	// });
+//  // 	console.log("Up[loading");
+//  mountainsRef.putString(file, 'base64url').then(function(snapshot) {
+//   console.log('Uploaded a base64url string!');
+// });
+  
+var database = firebase.database();
+       firebase.database().ref().set({ //Change here
+          "id" : "sa",
+          "name" : "album_name",
+          "singer" : "singer",
+          "songs_total" : "songs_total" ,
+          "cover" : ""
+        });
+console.log("set");
 
 
 	

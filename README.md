@@ -24,6 +24,16 @@ Tensorboard:
 ```
 	tensorboard --logdir='logs/'
 ```
+
+SSH:
+```
+ssh -i [PATH_TO_PRIVATE_KEY] [USERNAME]@[EXTERNAL_IP_ADDRESS]
+
+//create key-pair
+ssh-keygen -C yaan_uchiha29
+
+```
+
 Notebook:
 
 Running Notebook:
