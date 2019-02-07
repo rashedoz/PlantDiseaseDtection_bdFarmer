@@ -116,14 +116,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    static final int REQUEST_IMAGE_CAPTURE = 1;
-//    private void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
-
     static final int REQUEST_TAKE_PHOTO = 1;
 
     private void dispatchTakePictureIntent() {
@@ -181,93 +173,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            //For full sized image
-//            if (imageBitmap != null) {
-//                ivThumbnailPhoto.setImageBitmap(bitmap);
-//            }
-//
-//
-//
-//
-//
-//
-//
-//            Log.e(TAG,"Image W: "+ imageBitmap.getWidth()+ "H:" + imageBitmap.getHeight());
-////            Bitmap bm = Bitmap.createScaledBitmap(imageBitmap, 256, 256, true);
-//            Bitmap bm = imageBitmap;    //without resizing
-//            mImageView.setImageBitmap(bm);
-//
-//
-//            //Preparing for upload
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//            byte[] data2 = baos.toByteArray();
-//
-//            //creating reference to firebase storage
-//            FirebaseStorage storage = FirebaseStorage.getInstance();
-//            final StorageReference storageRef = storage.getReferenceFromUrl("gs://diseasedetect-e39f6.appspot.com");    //change the url according to your firebase app
-//
-//            // Create a reference to image name
-//            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-//            final String imgName = timeStamp + ".jpg";
-//            final StorageReference imageRef = storageRef.child(imgName);
-//
-//            UploadTask uploadTask = imageRef.putBytes(data2);
-//            //Uploading failure listener
-//            uploadTask.addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    // Handle unsuccessful uploads
-//                    Log.e("Debug","Upload failed");
-//                }
-//            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                    // ...
-//                    Log.e("Debug","Upload Success");
-//                    if(lastEntry!=-1){
-//                        lastEntry = lastEntry+1;
-//                        last_entry_ref.setValue(lastEntry);
-//                    }
-//                }
-//            });
-//
-//            //Download URL Listener
-//            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                @Override
-//                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                    if (!task.isSuccessful()) {
-//                        throw task.getException();
-//                    }
-//
-//                    // Continue with the task to get the download URL
-//                    return imageRef.getDownloadUrl();
-//                }
-//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    if (task.isSuccessful()) {
-//                        downloadUri = task.getResult();
-//                        String download_url = downloadUri.toString();
-//                        last_url_ref.setValue(download_url);
-//                        Log.e("Debug", "onSuccess: uri= "+ download_url);
-//                    } else {
-//                        // Handle failures
-//                        // ...
-//                    }
-//                }
-//            });
-//
-//        }
-//    }
 
 
     private File createImageFile() throws IOException {

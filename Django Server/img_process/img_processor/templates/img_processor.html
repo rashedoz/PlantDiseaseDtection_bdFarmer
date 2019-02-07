@@ -7,6 +7,12 @@
   <h2>Prediction :</h2>
   {{ prediction }}
 
+  <br><br><br><br><br>
+
+  <h2>Last Image Sent:</h2>
+
+  <img id="myImg" src="{{ image_url }}" width="256" height="256">
+
 
 
 <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
@@ -44,13 +50,32 @@
 // });
   
 var database = firebase.database();
-       firebase.database().ref().set({ //Change here
-          "id" : "sa",
-          "name" : "album_name",
-          "singer" : "singer",
-          "songs_total" : "songs_total" ,
-          "cover" : ""
-        });
+       // firebase.database().ref().set({ //Change here
+       //    "id" : "sa",
+       //    "name" : "album_name",
+       //    "singer" : "singer",
+       //    "songs_total" : "songs_total" ,
+       //    "cover" : ""
+       //  });
+
+var last_entry = firebase.database().ref('last_entry/');
+last_entry.once('value').then(function(snapshot) {
+    var v= snapshot.val()
+    console.log(v);
+});
+
+var image_url = firebase.database().ref('last_url/');
+image_url.once('value').then(function(snapshot) {
+    var v= snapshot.val()
+    console.log(v);
+
+    
+    // document.getElementById("myImg").setAttribute('src',v);
+    
+});
+
+
+
 console.log("set");
 
 

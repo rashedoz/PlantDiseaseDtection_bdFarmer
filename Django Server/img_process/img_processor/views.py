@@ -8,6 +8,10 @@ import os
 from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+import requests
 
 def index(request):
 
@@ -32,11 +36,37 @@ def index(request):
 	 'Tomato___healthy']
 
 
+	sJson = "N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/diseasedetect-e39f6-6d1ebab30232.json"
+
+	# Fetch the service account key JSON file contents
+	cred = credentials.Certificate(sJson)
+	# Initialize the app with a service account, granting admin privileges
+	firebase_admin.initialize_app(cred, {
+	    'databaseURL': 'https://diseasedetect-e39f6.firebaseio.com/'
+	})
+
+	# As an admin, the app has access to read and write all data, regradless of Security Rules
+	ref = db.reference('last_entry')
+	url_ref = db.reference('last_url')
+	image_url = url_ref.get()
+	print(ref.get())
+	print(image_url)
+
+
+
+
 	readDir = 'N:/Rice Detection/PlantVillage CrodAi-Labeled/PlantVillage-Dataset/raw/color/Potato___healthy/'
 	writeDir = 'N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/Image Resources/'
 
 	readImage = readDir + '00fc2ee5-729f-4757-8aeb-65c3355874f2___RS_HL 1864.JPG'
 
+	#Download and saving image
+	write_url = writeDir + '00000001.jpg'
+	f = open(write_url,'wb')
+	f.write(requests.get(image_url).content)
+	f.close()
+
+	#Import in opencv 
 	img = cv2.imread(readImage)
 	a = img.shape
 
@@ -62,7 +92,7 @@ def index(request):
 	image = Image.open(write_segmented)
 	print(type(image))
 
-	model = load_model("N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/tfModels/model1.h5")
+	model = load_model("N:/RiceDetectionGithub/tfModels/model1.h5")
 	print("MODEL-LOADED")
 
 	IMG_SIZE = 256
@@ -70,14 +100,14 @@ def index(request):
 	new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE)) #RESIZE MAGES
 	img_array = img_to_array(new_array)
 
+
+	#Normalizing image numpy array
 	np_image_test = np.array(img_array, dtype=np.float16) / 225.0
-	np_image_test.shape
 
 	#Expand dimension to predict the model in keras
-
 	np_image_test = np.expand_dims(np_image_test, axis=0)
-	np_image_test.shape
 
+	#Predict image
 	a = model.predict(np_image_test)
 
 	np.around(a[0], decimals=2)
@@ -111,5 +141,5 @@ def index(request):
 
 	
 
-	return render(request, 'img_processor.html',{'a': a,'f':image,'i':img,"prediction":prediction_result})
+	return render(request, 'img_processor.html',{'a': a,'f':image,'i':img,"prediction":prediction_result,"image_url":image_url})
 
