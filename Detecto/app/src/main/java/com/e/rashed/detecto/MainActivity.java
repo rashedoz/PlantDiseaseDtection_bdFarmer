@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -47,10 +48,12 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     public static String TAG = "Debug";
     ImageView mImageView;
+    TextView mTextview;
     private StorageReference mStorageRef;
     Integer lastEntry= -1;
     DatabaseReference last_entry_ref;
     DatabaseReference last_url_ref;
+    DatabaseReference pred_text_ref;
     Uri downloadUri;
 
     private Context mContext=MainActivity.this;
@@ -82,11 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button cameraBtn = (Button) findViewById(R.id.cameraBtn);
         mImageView = (ImageView) findViewById(R.id.imageView);
+        mTextview = (TextView) findViewById(R.id.predText);
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         last_entry_ref = database.getReference("last_entry");
         last_url_ref = database.getReference("last_url");
+        pred_text_ref = database.getReference("prediction/pred");
 
 //        myRef.setValue("Hello, World!");
 
@@ -98,6 +103,24 @@ public class MainActivity extends AppCompatActivity {
                 // whenever data at this location is updated.
                 lastEntry = dataSnapshot.getValue(Integer.class);
                 Log.d("Debug", "Value is: " + lastEntry);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Debug", "Failed to read value.", error.toException());
+            }
+        });
+
+        // Read from the database the lastEntry
+        pred_text_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String pred_result = dataSnapshot.getValue(String.class);
+                Log.d("Debug", "Prediction is: " + pred_result);
+                mTextview.setText(pred_result);
             }
 
             @Override
