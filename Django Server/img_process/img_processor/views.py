@@ -13,6 +13,18 @@ from firebase_admin import credentials
 from firebase_admin import db
 import requests
 
+
+sJson = "N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/diseasedetect-e39f6-6d1ebab30232.json"
+
+# Fetch the service account key JSON file contents
+cred = credentials.Certificate(sJson)
+# Initialize the app with a service account, granting admin privileges
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://diseasedetect-e39f6.firebaseio.com/'
+})
+
+ff = "SOME sTRING"
+
 def index(request):
 
 	CATEGORIES = ['Apple___Apple_scab','Apple___Black_rot','Apple___Cedar_apple_rust',
@@ -36,23 +48,21 @@ def index(request):
 	 'Tomato___healthy']
 
 
-	sJson = "N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/diseasedetect-e39f6-6d1ebab30232.json"
-
-	# Fetch the service account key JSON file contents
-	cred = credentials.Certificate(sJson)
-	# Initialize the app with a service account, granting admin privileges
-	firebase_admin.initialize_app(cred, {
-	    'databaseURL': 'https://diseasedetect-e39f6.firebaseio.com/'
-	})
-
+	firebase_admin.get_app()
 	# As an admin, the app has access to read and write all data, regradless of Security Rules
 	ref = db.reference('last_entry')
 	url_ref = db.reference('last_url')
+	prediction_ref = db.reference('prediction')
+
 	image_url = url_ref.get()
 	print(ref.get())
 	print(image_url)
 
-
+	#Globally loaded model
+	print(ff)
+	print("Loading Modedl")
+	model = load_model("N:/RiceDetectionGithub/tfModels/model1.h5")
+	print("MODEL-LOADED")
 
 
 	readDir = 'N:/Rice Detection/PlantVillage CrodAi-Labeled/PlantVillage-Dataset/raw/color/Potato___healthy/'
@@ -67,7 +77,7 @@ def index(request):
 	f.close()
 
 	#Import in opencv 
-	img = cv2.imread(readImage)
+	img = cv2.imread(write_url)
 	a = img.shape
 
 	# hue sat value -hsv
@@ -92,8 +102,7 @@ def index(request):
 	image = Image.open(write_segmented)
 	print(type(image))
 
-	model = load_model("N:/RiceDetectionGithub/tfModels/model1.h5")
-	print("MODEL-LOADED")
+	
 
 	IMG_SIZE = 256
 	img_array = cv2.imread(write_Orginal) 
@@ -114,12 +123,18 @@ def index(request):
 
 	a = model.predict_classes(np_image_test)
 	
-	prediction_result = 'Image prediction - '+CATEGORIES[int(a)]
+
+	result = CATEGORIES[int(a)]
+	prediction_result = 'Image prediction - '+ result
 
 	print(prediction_result)
 	# plt.imshow(new_array)
 	# plt.show()
 	# img_array
+
+	prediction_ref.set({
+		'pred': result
+		})
 
 
 	
@@ -131,13 +146,13 @@ def index(request):
 	
 
 	#Plotting Images
-	# plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
-	# plt.xticks([]), plt.yticks([])
-	# plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
-	# plt.xticks([]), plt.yticks([])
-	# plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
-	# plt.xticks([]), plt.yticks([])
-	# plt.show()
+	plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
+	plt.xticks([]), plt.yticks([])
+	plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
+	plt.xticks([]), plt.yticks([])
+	plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
+	plt.xticks([]), plt.yticks([])
+	plt.show()
 
 	
 
