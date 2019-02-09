@@ -3,18 +3,23 @@ from django.http import HttpResponse
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from PIL import Image
 import os
-from keras.models import load_model
 from keras.preprocessing.image import img_to_array
-
+import time
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import requests
+import tensorflow
+from keras.models import load_model
 
 
-sJson = "N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/diseasedetect-e39f6-6d1ebab30232.json"
+BASE_DIR = os.getcwd()
+BASE_DIR = BASE_DIR.replace("\\","/")
+print(BASE_DIR)
+
+sJson = BASE_DIR + "/diseasedetect-e39f6-6d1ebab30232.json"
+print(sJson)
 
 # Fetch the service account key JSON file contents
 cred = credentials.Certificate(sJson)
@@ -23,7 +28,15 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://diseasedetect-e39f6.firebaseio.com/'
 })
 
-ff = "SOME sTRING"
+ff = "Root level"
+print(ff)
+
+#Keras Model
+print("Loading Modedl")
+
+model = load_model("N:/RiceDetectionGithub/tfModels/model1.h5")
+graph = tensorflow.get_default_graph()
+print("MODEL-LOADED")
 
 def index(request):
 
@@ -48,6 +61,7 @@ def index(request):
 	 'Tomato___healthy']
 
 
+	#Firebase app initialization
 	firebase_admin.get_app()
 	# As an admin, the app has access to read and write all data, regradless of Security Rules
 	ref = db.reference('last_entry')
@@ -56,22 +70,20 @@ def index(request):
 
 	image_url = url_ref.get()
 	print(ref.get())
-	print(image_url)
+	# print(image_url)
 
-	#Globally loaded model
-	print(ff)
-	print("Loading Modedl")
-	model = load_model("N:/RiceDetectionGithub/tfModels/model1.h5")
-	print("MODEL-LOADED")
+	
 
 
-	readDir = 'N:/Rice Detection/PlantVillage CrodAi-Labeled/PlantVillage-Dataset/raw/color/Potato___healthy/'
-	writeDir = 'N:/RiceDetectionGithub/RiceDiseaseDtection_bdFarmer/Django Server/img_process/Image Resources/'
+	#readDir = 'N:/Rice Detection/PlantVillage CrodAi-Labeled/PlantVillage-Dataset/raw/color/Potato___healthy/'
+	writeDir = BASE_DIR + '/Image Resources/'
 
-	readImage = readDir + '00fc2ee5-729f-4757-8aeb-65c3355874f2___RS_HL 1864.JPG'
+	#readImage = readDir + '00fc2ee5-729f-4757-8aeb-65c3355874f2___RS_HL 1864.JPG'
 
 	#Download and saving image
-	write_url = writeDir + '00000001.jpg'
+
+	timestr = time.strftime("%Y%m%d-%H%M%S")
+	write_url = writeDir +timestr+ '.jpg'
 	f = open(write_url,'wb')
 	f.write(requests.get(image_url).content)
 	f.close()
@@ -79,6 +91,7 @@ def index(request):
 	#Import in opencv 
 	img = cv2.imread(write_url)
 	a = img.shape
+	print(a)
 
 	# hue sat value -hsv
 	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -99,8 +112,6 @@ def index(request):
 	cv2.imwrite(write_mask,mask)
 	cv2.imwrite(write_segmented,res)
 
-	image = Image.open(write_segmented)
-	print(type(image))
 
 	
 
@@ -116,18 +127,23 @@ def index(request):
 	#Expand dimension to predict the model in keras
 	np_image_test = np.expand_dims(np_image_test, axis=0)
 
-	#Predict image
-	a = model.predict(np_image_test)
-
-	np.around(a[0], decimals=2)
-
-	a = model.predict_classes(np_image_test)
 	
+	global graph
+	with graph.as_default():
+		#Predict image
+		print("prediction called")
+		a = model.predict(np_image_test)
 
-	result = CATEGORIES[int(a)]
-	prediction_result = 'Image prediction - '+ result
+		
+		pred_list = a[0]*100
+		pred_list = np.around(pred_list, decimals=2)
 
-	print(prediction_result)
+		a = model.predict_classes(np_image_test)
+		
+		result = CATEGORIES[int(a)]
+		prediction_result = 'Image prediction - '+ result
+
+		print(prediction_result)
 	# plt.imshow(new_array)
 	# plt.show()
 	# img_array
@@ -154,7 +170,8 @@ def index(request):
 	plt.xticks([]), plt.yticks([])
 	plt.show()
 
-	
+	datas = {'a': a,"prediction":prediction_result,
+			"image_url":image_url,"pred_list":pred_list}
 
-	return render(request, 'img_processor.html',{'a': a,'f':image,'i':img,"prediction":prediction_result,"image_url":image_url})
+	return render(request, 'img_processor.html',datas)
 
