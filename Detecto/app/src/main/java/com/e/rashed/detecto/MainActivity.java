@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Button cameraBtn = (Button) findViewById(R.id.cameraBtn);
+        ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         mImageView = (ImageView) findViewById(R.id.imageView);
         mTextview = (TextView) findViewById(R.id.predText);
 

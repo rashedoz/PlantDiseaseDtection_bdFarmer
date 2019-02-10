@@ -178,6 +178,7 @@ def index(request):
 		plt.pause(2)
 		plt.close('all')
 		
+		
 
 
 
