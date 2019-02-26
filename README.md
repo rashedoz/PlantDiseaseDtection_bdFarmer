@@ -1,6 +1,9 @@
 # RiceDiseaseDtection_bdFarmer
 
-
+#Docker 
+# Assuming an Ubuntu Docker image
+$ docker run -it <image> /bin/bash
+	
 Kaggle -> 
 
 Dropmark Links-> https://rashedoz.dropmark.com/592180
