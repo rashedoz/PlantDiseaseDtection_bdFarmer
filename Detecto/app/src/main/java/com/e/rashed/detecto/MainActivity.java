@@ -86,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         mImageView = (ImageView) findViewById(R.id.imageView);
         mTextview = (TextView) findViewById(R.id.predText);
+        Button hmbtn = (Button) findViewById(R.id.button);
+
+        hmbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(i);
+            }
+        });
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -270,10 +279,7 @@ public class MainActivity extends AppCompatActivity {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                     // ...
                     Log.e("Debug","Upload Success");
-                    if(lastEntry!=-1){
-                        lastEntry = lastEntry+1;
-                        last_entry_ref.setValue(lastEntry);
-                    }
+
                 }
             });
 
@@ -296,6 +302,11 @@ public class MainActivity extends AppCompatActivity {
                         String download_url = downloadUri.toString();
                         last_url_ref.setValue(download_url);
                         Log.e("Debug", "onSuccess: uri= "+ download_url);
+                        //Updating last entry
+                        if(lastEntry!=-1){
+                            lastEntry = lastEntry+1;
+                            last_entry_ref.setValue(lastEntry);
+                        }
                         progress.dismiss();
                     } else {
                         // Handle failures
