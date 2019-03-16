@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
     public static String TAG = "Debug";
     ImageView mImageView;
     TextView mTextview;
+    TextView diseaseTxt;
     private StorageReference mStorageRef;
     Integer lastEntry= -1;
     DatabaseReference last_entry_ref;
     DatabaseReference last_url_ref;
     DatabaseReference pred_text_ref;
     Uri downloadUri;
+    public String pred_result;
+
+    public Boolean captureImg = false;
 
     private Context mContext=MainActivity.this;
     private static final int REQUEST = 112;
@@ -82,11 +89,40 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         mImageView = (ImageView) findViewById(R.id.imageView);
         mTextview = (TextView) findViewById(R.id.predText);
+        diseaseTxt = (TextView) findViewById(R.id.predText2);
         Button hmbtn = (Button) findViewById(R.id.button);
+
+        TapTargetView.showFor(this,                 // `this` is an Activity
+                TapTarget.forView(findViewById(R.id.cameraBtn), "ছবি তুলুন ", "এখানে  ক্লিক করলে ছবি উঠবে")
+                        // All options below are optional
+                        .outerCircleColor(R.color.colorAccent)      // Specify a color for the outer circle
+                        .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                        .targetCircleColor(R.color.colorPrimary)   // Specify a color for the target circle
+                        .titleTextSize(50)                  // Specify the size (in sp) of the title text
+                        .titleTextColor(R.color.bg)      // Specify the color of the title text
+                        .descriptionTextSize(30)            // Specify the size (in sp) of the description text
+                        .descriptionTextColor(R.color.corngreen)  // Specify the color of the description text
+                        .textColor(R.color.yellow)            // Specify a color for both the title and description text
+                        .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                        .dimColor(R.color.bg)            // If set, will dim behind the view with 30% opacity of the given color
+                        .drawShadow(true)                   // Whether to draw a drop shadow or not
+                        .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                        .tintTarget(true)                   // Whether to tint the target view's color
+                        .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                        // Specify a custom drawable to draw as the target
+                        .targetRadius(60),                  // Specify the target radius (in dp)
+                new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);      // This call is optional
+
+                        Toast.makeText(MainActivity.this,
+                                "Ready", Toast.LENGTH_LONG).show();
+                    }
+                });
 
         hmbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +163,15 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String pred_result = dataSnapshot.getValue(String.class);
-                Log.d("Debug", "Prediction is: " + pred_result);
-                mTextview.setText(pred_result);
+
+                    pred_result = dataSnapshot.getValue(String.class);
+                    Log.d("Debug", "Prediction is: " + pred_result);
+                    String[] namesList = pred_result.split("__");
+                    if(captureImg==true) {
+                        mTextview.setText(namesList[0]);
+                        diseaseTxt.setText(namesList[1]);
+                    }
+
             }
 
             @Override
@@ -308,6 +350,15 @@ public class MainActivity extends AppCompatActivity {
                             last_entry_ref.setValue(lastEntry);
                         }
                         progress.dismiss();
+
+                        captureImg = true;
+
+                        if (captureImg==true) {
+                            Log.d("Debug", "Prediction is: " + pred_result);
+                            String[] namesList = pred_result.split("__");
+                            mTextview.setText(namesList[0]);
+                            diseaseTxt.setText(namesList[1]);
+                        }
                     } else {
                         // Handle failures
                         // ...
