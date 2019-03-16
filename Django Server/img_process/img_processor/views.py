@@ -141,8 +141,17 @@ def index(request):
 			a = model.predict(np_image_test)
 
 			
-			pred_list = a[0]*100
+			pred_list = a
 			pred_list = np.around(pred_list, decimals=2)
+			
+			pred_list.sort()
+			pred_single = pred_list[0]
+
+			pred_single[:] = pred_single[::-1]
+
+			result_pb = pred_single[:3]
+			
+			print("pred_single=",pred_single)
 
 			a = model.predict_classes(np_image_test)
 			
@@ -166,24 +175,60 @@ def index(request):
 		# 	# print(str1)
 
 		
+		#Plotting filtering
+		# img = new_array
+		# #2D Convolution ( Image Filtering )
+		# kernel = np.ones((5,5),np.float32)/25
+		# dst = cv2.filter2D(img,-1,kernel)
 
-		#Plotting Images
-		plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
-		plt.xticks([]), plt.yticks([])
-		plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
-		plt.xticks([]), plt.yticks([])
-		plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
-		plt.xticks([]), plt.yticks([])
-		plt.show(block=False)
-		plt.pause(2)
-		plt.close('all')
+		# plt.subplot(121),plt.imshow(img),plt.title("Orginal")
+		# plt.xticks([]), plt.yticks([])
+		# plt.subplot(122),plt.imshow(dst),plt.title('Averaging')
+		# plt.xticks([]), plt.yticks([])
+		# plt.show(block=False)
+		# plt.pause(2)
+		# plt.close('all')
+
+		# denoised_img = cv2.fastNlMeansDenoisingColored(dst)
+
+		# plt.subplot(121),plt.imshow(dst),plt.title("Blurred")
+		# plt.xticks([]), plt.yticks([])
+		# plt.subplot(122),plt.imshow(denoised_img),plt.title('Denoising')
+		# plt.xticks([]), plt.yticks([])
+		# plt.show(block=False)
+		# plt.pause(2)
+		# plt.close('all')
+
+		# #Gaussian Filtering
+		# blur = cv2.GaussianBlur(img,(5,5),0)
+		# plt.subplot(121),plt.imshow(img),plt.title("Orginal")
+		# plt.xticks([]), plt.yticks([])
+		# plt.subplot(122),plt.imshow(blur),plt.title('Blurred')
+		# plt.xticks([]), plt.yticks([])
+		# plt.show(block=False)
+		# plt.pause(2)
+		# plt.close('all')
+
+
+
+
+		# #Plotting Images
+		# plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
+		# plt.xticks([]), plt.yticks([])
+		# plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
+		# plt.xticks([]), plt.yticks([])
+		# plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
+		# plt.xticks([]), plt.yticks([])
+		# plt.show(block=False)
+		# plt.pause(2)
+		# plt.close('all')
 		
 		
 
 
 
 		datas = {'a': a,"prediction":prediction_result,
-				"image_url":image_url,"pred_list":pred_list}
+				"image_url":image_url,"pred_list":result_pb}
 
 		return render(request, 'img_processor.html',datas)
 
