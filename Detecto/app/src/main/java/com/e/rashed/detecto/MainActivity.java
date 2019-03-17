@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -51,20 +52,20 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     public static String TAG = "Debug";
     ImageView mImageView;
-    TextView mTextview;
-    TextView diseaseTxt;
+
     private StorageReference mStorageRef;
     Integer lastEntry= -1;
     DatabaseReference last_entry_ref;
     DatabaseReference last_url_ref;
-    DatabaseReference pred_text_ref;
+
     Uri downloadUri;
-    public String pred_result;
+
 
     public Boolean captureImg = false;
 
     private Context mContext=MainActivity.this;
     private static final int REQUEST = 112;
+    private int PICK_IMAGE_REQUEST = 121;
 
     String mCurrentPhotoPath;
 
@@ -91,10 +92,21 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView cameraBtn = (ImageView) findViewById(R.id.cameraBtn);
         mImageView = (ImageView) findViewById(R.id.imageView);
-        mTextview = (TextView) findViewById(R.id.predText);
-        diseaseTxt = (TextView) findViewById(R.id.predText2);
-        Button hmbtn = (Button) findViewById(R.id.button);
 
+        Button hmbtn = (Button) findViewById(R.id.button);
+        Button galleryBtn = (Button) findViewById(R.id.galleryBtn);
+
+
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.ekhane_click_korle_chobi_uthbe);
+        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                mp.release();
+                mp=null;
+            }
+        });
         TapTargetView.showFor(this,                 // `this` is an Activity
                 TapTarget.forView(findViewById(R.id.cameraBtn), "ছবি তুলুন ", "এখানে  ক্লিক করলে ছবি উঠবে")
                         // All options below are optional
@@ -132,11 +144,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                // Show only images, no videos or anything else
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                // Always show the chooser (if there are multiple options available)
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+
+
+            }
+        });
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         last_entry_ref = database.getReference("last_entry");
         last_url_ref = database.getReference("last_url");
-        pred_text_ref = database.getReference("prediction/pred");
 
 //        myRef.setValue("Hello, World!");
 
@@ -157,29 +184,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Read from the database the lastEntry
-        pred_text_ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
 
-                    pred_result = dataSnapshot.getValue(String.class);
-                    Log.d("Debug", "Prediction is: " + pred_result);
-                    String[] namesList = pred_result.split("__");
-                    if(captureImg==true) {
-                        mTextview.setText(namesList[0]);
-                        diseaseTxt.setText(namesList[1]);
-                    }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Debug", "Failed to read value.", error.toException());
-            }
-        });
 
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,14 +221,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
+        //Camera option request
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
             File file = new File(mCurrentPhotoPath);
             Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
             Context context = this;
             Bitmap bitmap = null;
+            Bitmap resized = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.fromFile(file));
+
+                //Resizing Bitmap for uploading
+                 resized = Bitmap.createScaledBitmap(bitmap, 512, 512, true);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,17 +247,76 @@ public class MainActivity extends AppCompatActivity {
 
                 ProgressDialog progress = new ProgressDialog(this);
                 progress.setTitle("Loading");
-                progress.setMessage("Wait while Uploading...");
+                progress.setMessage("ছবি পাঠানো হচ্ছে....");
                 progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progress.show();
 
-                UploadFile(progress);
+                final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.chobi_upload_hocche );
+                mediaPlayer.start(); // no need to call prepare(); create() does that for you
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.reset();
+                        mp.release();
+                        mp=null;
+                    }
+                });
+
+                //Upload Original File
+                //UploadFile(progress);
+
+                //Upload resized bitmap
+                UploadBitmap(resized,progress);
 
 
             }
         }
 
+        //Gallery option request
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && intent != null && intent.getData() != null) {
+
+            Uri uri = intent.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+
+                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                imageView.setImageBitmap(bitmap);
+
+                //Resizing Bitmap for uploading
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 512, 512, true);
+
+                ProgressDialog progress = new ProgressDialog(this);
+                progress.setTitle("Loading");
+                progress.setMessage("ছবি পাঠানো হচ্ছে....");
+                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.show();
+
+                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_upload_hocche );
+                mediaPlayer.start(); // no need to call prepare(); create() does that for you
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.reset();
+                        mp.release();
+                        mp=null;
+                    }
+                });
+
+
+                UploadBitmap(resized,progress);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
+
+
 
 
     private File createImageFile() throws IOException {
@@ -353,12 +423,7 @@ public class MainActivity extends AppCompatActivity {
 
                         captureImg = true;
 
-                        if (captureImg==true) {
-                            Log.d("Debug", "Prediction is: " + pred_result);
-                            String[] namesList = pred_result.split("__");
-                            mTextview.setText(namesList[0]);
-                            diseaseTxt.setText(namesList[1]);
-                        }
+
                     } else {
                         // Handle failures
                         // ...
@@ -367,5 +432,103 @@ public class MainActivity extends AppCompatActivity {
             });
 
     }
+
+    public void UploadBitmap(Bitmap bitmap,final ProgressDialog progress){
+
+        //creating reference to firebase storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final StorageReference storageRef = storage.getReferenceFromUrl("gs://diseasedetect-e39f6.appspot.com");    //change the url according to your firebase app
+
+        // Create a reference to image name
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        final String imgName = timeStamp + ".jpg";
+        final StorageReference imageRef = storageRef.child(imgName);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+
+        //Uploading failure listener
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Log.e("Debug","Upload failed");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                Log.e("Debug","Upload Success");
+
+            }
+        });
+
+        //Download URL Listener
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return imageRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    downloadUri = task.getResult();
+                    String download_url = downloadUri.toString();
+                    last_url_ref.setValue(download_url);
+                    Log.e("Debug", "onSuccess: uri= "+ download_url);
+                    //Updating last entry
+                    if(lastEntry!=-1){
+                        lastEntry = lastEntry+1;
+                        last_entry_ref.setValue(lastEntry);
+                    }
+                    progress.dismiss();
+
+                    captureImg = true;
+                    CompleteUpload();
+
+
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+        });
+    }
+
+    public void CompleteUpload(){
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Processing..");
+        progress.setMessage("অপেক্ষা করুন....");
+        progress.setIcon(R.drawable.camera);
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kichu_nei );
+        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                mp.release();
+                mp=null;
+                progress.dismiss();
+                Intent i = new Intent(getApplicationContext(),ResultActivity.class);
+                startActivity(i);
+
+            }
+        });
+    }
+
+
 
 }

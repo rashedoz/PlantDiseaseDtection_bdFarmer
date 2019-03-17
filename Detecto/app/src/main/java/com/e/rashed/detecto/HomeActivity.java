@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         final Context context = this;
 
         final MediaPlayer mp;
-        mp = MediaPlayer.create(context, R.raw.beep);
+        mp = MediaPlayer.create(context, R.raw.chobir_menu_te_jan);
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -37,14 +37,16 @@ public class HomeActivity extends AppCompatActivity {
         mp.start();
 
 
+
+
         ImageView camBtn = (ImageView) findViewById(R.id.camBtn);
         camBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.beep );
-                mediaPlayer.start(); // no need to call prepare(); create() does that for you
+//                MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.beep );
+//                mediaPlayer.start(); // no need to call prepare(); create() does that for you
 
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(i);
@@ -79,7 +81,21 @@ public class HomeActivity extends AppCompatActivity {
 
                         Toast.makeText(HomeActivity.this,
                                 "Clicked", Toast.LENGTH_LONG).show();
+                        final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.rog_shomuho );
+                        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.reset();
+                                mp.release();
+                                mp=null;
+                            }
+                        });
                     }
                 });
+
+        if(!mp.isPlaying())
+            mp.release();
+
     }
 }
