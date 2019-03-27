@@ -77,10 +77,13 @@ def hello():
     ref = db.reference('last_entry')
     url_ref = db.reference('last_url')
     prediction_ref = db.reference('prediction')
+    last_name_ref = db.reference('last_name')
+    last_done_ref = db.reference('last_done')
 
     global Last_id
     image_url = url_ref.get()
     last_entry =ref.get()
+    # last_name = last_name_ref.get()
 
     if(Last_id==-1 or last_entry!=Last_id):
         Last_id = last_entry
@@ -127,7 +130,7 @@ def hello():
             print("No leaf detected")
             return render_template('no-img.html')
 
-        else if:
+        elif ratio_percentage >= 20:
             img_array = img_to_array(new_array)
             #Normalizing image numpy array
             np_image_test = np.array(img_array, dtype=np.float16) / 225.0
@@ -191,12 +194,14 @@ def hello():
             
             
 
-
+            last_name_ref.set(image_url)
+            last_done_ref.set(last_entry)
 
             datas = {'a': a,"prediction":prediction_result,
                     "image_url":image_url,"pred_list":result_pb}
 
-            return render_template('img_processor.html', datas)
+
+            return render_template('img_processor.html', **datas)
 
     else :
         print("No new image Last id = %d" % Last_id)

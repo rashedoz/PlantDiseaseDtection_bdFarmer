@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     Integer lastEntry= -1;
     DatabaseReference last_entry_ref;
     DatabaseReference last_url_ref;
+    DatabaseReference last_name;
+
+    public String download_url;
+
 
     Uri downloadUri;
 
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
             } else {
                 //do here
-                Log.e(TAG,"Has Pewrmissions");
+                Log.e(TAG,"Has Permissions");
             }
         } else {
             //do here
@@ -170,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         last_entry_ref = database.getReference("last_entry");
         last_url_ref = database.getReference("last_url");
+        last_name = database.getReference("last_name");
+
+
 
 //        myRef.setValue("Hello, World!");
 
@@ -526,7 +533,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     downloadUri = task.getResult();
-                    String download_url = downloadUri.toString();
+                    download_url = downloadUri.toString();
                     last_url_ref.setValue(download_url);
                     Log.e("Debug", "onSuccess: uri= "+ download_url);
                     //Updating last entry
@@ -566,6 +573,7 @@ public class MainActivity extends AppCompatActivity {
                 mp=null;
                 progress.dismiss();
                 Intent i = new Intent(getApplicationContext(),ResultActivity.class);
+                i.putExtra("download_url",download_url);
                 startActivity(i);
 
             }
