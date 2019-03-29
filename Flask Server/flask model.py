@@ -1,4 +1,4 @@
-
+from __future__ import division
 import numpy as np
 import cv2
 import numpy as np
@@ -12,6 +12,7 @@ from firebase_admin import db
 import requests
 import tensorflow
 from keras.models import load_model
+import functions as f1
 
 BASE_DIR = os.getcwd()
 BASE_DIR = BASE_DIR.replace("\\","/")
@@ -109,6 +110,11 @@ def hello():
         img = cv2.imread(write_url)
         a = img.shape
         print(a)
+
+
+        contour_size = f1.DetectLeaf(img)
+
+        print(contour_size)
 
         # hue sat value -hsv
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
