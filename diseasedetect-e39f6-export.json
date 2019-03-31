@@ -1,0 +1,58 @@
+{
+  "AndroidApp" : {
+    "Apple" : {
+      "Diseases" : {
+        "Apple Black Rot" : {
+          "Name" : "অ্যাপল ব্ল্যাক রট",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-3",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত ফলকে আলাদা করতে হবে। আলো এবং বায়ু সঞ্চালনের জন্য ভাল ব্যবস্থা করতে হবে। মৃত এবং রোগাক্রান্ত অঙ্গসমূহকে আলাদা করতে হবে।  ",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/01a66316-0e98-4d3b-a56f-d78752cd043f___FREC_Scab%203003.JPG?alt=media&token=0568a6f3-1d12-47b4-ab9a-f4444bcb3866"
+        },
+        "Apple Scab" : {
+          "Name" : "অ্যাপল স্ক্যাব",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-1",
+          "RemedyWord" : "আগাছা পরিষ্কার করতে হবে এবং গাছকে ছত্রাক্মুক্ত করতে হবে",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/01a66316-0e98-4d3b-a56f-d78752cd043f___FREC_Scab%203003.JPG?alt=media&token=0568a6f3-1d12-47b4-ab9a-f4444bcb3866"
+        }
+      }
+    },
+    "Tomato" : {
+      "Diseases" : {
+        "Tomato Bacterial Spot" : {
+          "Name" : "টমেটো ব্যাকটেরিয়াল স্পট",
+          "Remedy" : "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/",
+          "RemedyWord" : "গত বছর মরিচ চাষ হয়েছে এমন জমিতে টমেটো চাষ থেকে বিরত থাকুন। গাছে পরিমাণ মত পানি দিন। বাতাস চলাচলের ভালো ব্যবস্থা রাখুন। আগাছা রোধ করুন। কপার মিশ্রিত সার ব্যবহার করুন।"
+        },
+        "Tomato Early Blight" : {
+          "Name" : "টমেটো আরলি ব্লাইড",
+          "Remedy" : "https://www.thespruce.com/early-blight-on-tomato-plants-1402973",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়। প্রয়োজনে কপার এবং সালফারের স্প্রে করুন।"
+        },
+        "Tomato Late Blight" : {
+          "Name" : "টমেটো লেট ব্লাইড",
+          "Remedy" : "https://www.thespruce.com/understanding-late-blight-disease-of-tomatoes-1402971",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত গাছকে আলাদা করতে হবে। এই রোগ দ্রুত সংক্রমক, তাই নিকটস্থ কৃষি অধিদপ্তরে যোগাযোগ করুন।"
+        },
+        "Tomato Leaf Mold" : {
+          "Name" : "টমেটো লিফ মল্ড",
+          "Remedy" : "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/",
+          "RemedyWord" : "গাছের আগাছা রোধ করুন। গাছে পানি দেওয়ার সময় পাতা যাতে না ভিজে সেদিকে খেয়াল রাখুন এবং পর্যাপ্ত পরিমাণে বাতাস চলাচলের ব্যবস্থা রাখুন।"
+        },
+        "Tomato Septoria Leaf Spot" : {
+          "Name" : "টমেটো সেপটোরিয়া লিফ স্পট",
+          "Remedy" : "https://www.thespruce.com/identifying-and-controlling-septoria-leaf-spot-of-tomato-1402974",
+          "RemedyWord" : "রোগাক্রান্ত গাছটিকে দূরে সরিয়ে নিন কেননা এর থেকে আশেপাশের সুস্থ টমেটো গাছ এমনকি আলু গাছেও এ রোগের বিস্তার হতে পারে। রোগাক্রান্ত গাছের গোড়ায় পানি দিন এবং পাতায় পানি দেওয়া থেকে বিরত থাকুন। পটাশিয়াম বাইকার্বনেট অথবা কপার মিশ্রিত সার প্রয়োগ করুন।"
+        }
+      }
+    }
+  },
+  "last_done" : 132,
+  "last_entry" : 141,
+  "last_name" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/2019.04.01.03.07.10.jpg?alt=media&token=45020e57-1cb5-4d48-a111-2821437ef975",
+  "last_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/2019.04.01.05.02.58.jpg?alt=media&token=ccc9b8f5-e979-4cd3-a1ac-9c2a39961c17",
+  "prediction" : {
+    "pred" : "NoLeafDetected__TryAgain"
+  },
+  "result_url" : "a",
+  "sa" : "asd"
+}

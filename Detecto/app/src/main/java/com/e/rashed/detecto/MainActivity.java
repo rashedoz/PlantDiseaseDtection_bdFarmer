@@ -26,6 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.tasks.Continuation;
@@ -572,12 +578,42 @@ public class MainActivity extends AppCompatActivity {
                 mp.release();
                 mp=null;
                 progress.dismiss();
+
+                //Call Server Uri
+                //SendServerRequest();
                 Intent i = new Intent(getApplicationContext(),ResultActivity.class);
                 i.putExtra("download_url",download_url);
                 startActivity(i);
 
             }
         });
+    }
+
+    public void SendServerRequest(){
+
+        final
+
+            // Instantiate the RequestQueue.
+                    RequestQueue queue = Volley.newRequestQueue(this);
+                    String url ="http://192.168.0.120:5000/";
+
+            // Request a string response from the provided URL.
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    Log.e("Req","Response is: " + response.substring(0, 500));
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Req","That didn't work!");
+                        }
+                    });
+
+            // Add the request to the RequestQueue.
+                    queue.add(stringRequest);
     }
 
 
