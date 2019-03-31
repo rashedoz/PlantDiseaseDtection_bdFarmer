@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -13,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ResultActivity extends AppCompatActivity {
     TextView mTextview;
     TextView diseaseTxt;
@@ -21,6 +26,17 @@ public class ResultActivity extends AppCompatActivity {
     public String pred_result;
 
     public String pred_name_str;
+
+
+    //Recyclerview
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    public List<Person> persons;
+    public RVAdapter adapter;
+    public RecyclerView rv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
         diseaseTxt = (TextView) findViewById(R.id.predText2);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+         FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        last_entry_ref = database.getReference("last_entry");
 //        last_url_ref = database.getReference("last_url");
         last_name = database.getReference("last_name");
@@ -60,12 +76,14 @@ public class ResultActivity extends AppCompatActivity {
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
 
+        progress.dismiss();
+
         last_name.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 pred_name_str = dataSnapshot.getValue(String.class);
                 if (pred_name_str.equals(download_url)){
-                    progress.dismiss();
+
                 }
             }
 
@@ -98,5 +116,73 @@ public class ResultActivity extends AppCompatActivity {
                 Log.w("Debug", "Failed to read value.", error.toException());
             }
         });
+
+
+        //Recyclerview
+
+        initializeData();
+        Log.e("Pd","Data initialized");
+
+        rv = (RecyclerView)findViewById(R.id.rvResult);
+
+        rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        rv.setLayoutManager(llm);
+        Log.e("Pd","rv init");
+
+        adapter = new RVAdapter(persons);
+        if (adapter.getItemCount()!=0) {
+            Log.e("Pd", "adapter initialized" + persons.get(0).name);
+            rv.setAdapter(adapter);
+            Log.e("Pd", "adapter set" + persons.get(0).name);
+        }
+        else {
+            Log.e("Pd", "adapter empty");
+        }
+
+
+
+    }
+
+    private void initializeData(){
+        persons = new ArrayList<>();
+
+        DatabaseReference plant;
+        DatabaseReference diseases;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        plant = database.getReference("AndroidApp");
+        diseases = database.getReference("AndroidApp/Apple/Diseases");
+
+        diseases.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ArrayList<String> disease_list = new ArrayList<String>();
+
+                for(DataSnapshot dsp: dataSnapshot.getChildren()){
+                    Log.e("Resultactivity","dsp="+dsp.getValue());
+                    String image_url = (String) dsp.child("image_url").getValue();
+                    String disese_name = (String) dsp.child("Name").getValue();
+                    String remedy_url = (String) dsp.child("Remedy").getValue();
+                    String remedy_short = (String) dsp.child("RemedyWord").getValue();
+
+                    persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
+                    Log.e("Resultactivity","n="+disese_name+image_url);
+
+                }
+                rv.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 }

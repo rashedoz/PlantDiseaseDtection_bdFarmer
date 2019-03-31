@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
@@ -49,8 +51,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.personName.setText(persons.get(i).name);
         personViewHolder.personAge.setText(persons.get(i).age);
-        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
-    }
+//        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
+        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/01a66316-0e98-4d3b-a56f-d78752cd043f___FREC_Scab%203003.JPG?alt=media&token=0568a6f3-1d12-47b4-ab9a-f4444bcb3866").into(personViewHolder.personPhoto);
+
+         }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

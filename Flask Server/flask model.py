@@ -132,11 +132,18 @@ def hello():
         ratio_percentage = np.round(ratio_brown*100, 2)
         print('green pixel percentage:', ratio_percentage)
 
-        if ratio_percentage < 20:
+        if contour_size < 200 or ratio_percentage<=8:
             print("No leaf detected")
+            last_name_ref.set(image_url)
+            last_done_ref.set(last_entry)
+            prediction_ref.set({
+                'pred': "NoLeafDetected__TryAgain"
+                })
+
             return render_template('no-img.html')
 
-        elif ratio_percentage >= 20:
+        #Green ratio and contour size
+        elif contour_size >= 200 and ratio_percentage>8:
             img_array = img_to_array(new_array)
             #Normalizing image numpy array
             np_image_test = np.array(img_array, dtype=np.float16) / 225.0
@@ -170,35 +177,11 @@ def hello():
 
                 print(prediction_result)
 
-            # plt.imshow(new_array)
-            # plt.show()
-            # img_array
 
             prediction_ref.set({
                 'pred': result
                 })
 
-
-            
-
-            # with open(write_segmented, "rb") as f:
-            #   str1 = base64.b64encode(f.read())
-            #   # print(str1)
-
-            
-
-            #Plotting Images
-            # plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
-            # plt.xticks([]), plt.yticks([])
-            # plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
-            # plt.xticks([]), plt.yticks([])
-            # plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
-            # plt.xticks([]), plt.yticks([])
-            # plt.show(block=False)
-            # plt.pause(2)
-            # plt.close('all')
-            
-            
 
             last_name_ref.set(image_url)
             last_done_ref.set(last_entry)

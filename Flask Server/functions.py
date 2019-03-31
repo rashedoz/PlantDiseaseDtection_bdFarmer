@@ -53,7 +53,7 @@ def DetectLeaf(image):
 	# show_mask(image_red1)
 	# show_mask(image_red2)
 	image_red = image_red1 + image_red2
-	show_mask(image_red)
+	#show_mask(image_red)
 
 	# Clean up
 	kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
@@ -61,24 +61,24 @@ def DetectLeaf(image):
 
 	# Fill small gaps
 	image_red_closed = cv2.morphologyEx(image_red, cv2.MORPH_CLOSE, kernel)
-	show_mask(image_red_closed)
+	#show_mask(image_red_closed)
 
 	# Remove specks
 	image_red_closed_then_opened = cv2.morphologyEx(image_red_closed, cv2.MORPH_OPEN, kernel)
-	show_mask(image_red_closed_then_opened)
+	#show_mask(image_red_closed_then_opened)
 
 	#Find largest contour
 	big_contour, red_mask = find_biggest_contour(image_red_closed_then_opened)
 	# show_mask(red_mask)
 
 	#Show overlay image
-	overlay_mask(red_mask, image)
+	#overlay_mask(red_mask, image)
 
 	# Bounding ellipse
 	image_with_ellipse = image.copy()
 	ellipse = cv2.fitEllipse(big_contour)
 	cv2.ellipse(image_with_ellipse, ellipse, (0,255,0), 2)
-	show(image_with_ellipse)
+	#show(image_with_ellipse)
 
 	print("Big contour:", big_contour.size)
 
