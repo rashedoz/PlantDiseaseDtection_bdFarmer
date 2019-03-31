@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         });
         mp.start();
 
-        ImageView appleIcn =(ImageView) findViewById(R.id.imageView3);
+        ImageView appleIcn =(ImageView) findViewById(R.id.appleicon);
         appleIcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     Integer lastEntry= -1;
     DatabaseReference last_entry_ref;
     DatabaseReference last_url_ref;
+    DatabaseReference last_name;
+
+    public String download_url;
+
 
     Uri downloadUri;
 
@@ -66,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext=MainActivity.this;
     private static final int REQUEST = 112;
     private int PICK_IMAGE_REQUEST = 121;
+    private int REQUEST_TAKE_PHOTO = 911;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     String mCurrentPhotoPath;
 
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions((Activity) mContext, PERMISSIONS, REQUEST );
             } else {
                 //do here
-                Log.e(TAG,"Has Pewrmissions");
+                Log.e(TAG,"Has Permissions");
             }
         } else {
             //do here
@@ -160,10 +167,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Log.e("Main","View initialized");
+        FirebaseApp.initializeApp(this);
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         last_entry_ref = database.getReference("last_entry");
         last_url_ref = database.getReference("last_url");
+        last_name = database.getReference("last_name");
+
+
 
 //        myRef.setValue("Hello, World!");
 
@@ -195,63 +208,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    static final int REQUEST_TAKE_PHOTO = 1;
+
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "com.e.rashed.detecto.fileprovider",photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                Log.e(TAG,"Camera Intent");
-            }
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
+//For storage save
+//    private void dispatchTakePictureIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        // Ensure that there's a camera activity to handle the intent
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            // Create the File where the photo should go
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                Uri photoURI = FileProvider.getUriForFile(this, "com.e.rashed.detecto.fileprovider",photoFile);
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                Log.e(TAG,"Camera Intent");
+//            }
+//        }
+//    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //Camera option request
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
-            File file = new File(mCurrentPhotoPath);
-            Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
-            Context context = this;
-            Bitmap bitmap = null;
-            Bitmap resized = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.fromFile(file));
+        Log.e(TAG,"Onactivity Result:"+requestCode);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 512, 512, true);
+            mImageView.setImageBitmap(imageBitmap);
 
-                //Resizing Bitmap for uploading
-                 resized = Bitmap.createScaledBitmap(bitmap, 512, 512, true);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (bitmap != null) {
-                Log.e(TAG,"PHOTO BITMAP CREATED");
-
-                //Loading image
-                Bitmap bmImg = BitmapFactory.decodeFile(mCurrentPhotoPath);
-                mImageView.setImageBitmap(bmImg);
-
-                ProgressDialog progress = new ProgressDialog(this);
+            ProgressDialog progress = new ProgressDialog(this);
                 progress.setTitle("Loading");
                 progress.setMessage("ছবি পাঠানো হচ্ছে....");
                 progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progress.show();
 
-                final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.chobi_upload_hocche );
+                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_upload_hocche );
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -266,16 +269,63 @@ public class MainActivity extends AppCompatActivity {
                 //UploadFile(progress);
 
                 //Upload resized bitmap
-                UploadBitmap(resized,progress);
-
-
-            }
+                UploadBitmap(imageBitmap,progress);
         }
+        //Camera option request
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
+//            File file = new File(mCurrentPhotoPath);
+//            Log.e(TAG,"Result ok file created "+mCurrentPhotoPath );
+//            Context context = this;
+//            Bitmap bitmap = null;
+//            Bitmap resized = null;
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.fromFile(file));
+//
+//                //Resizing Bitmap for uploading
+//                 resized = Bitmap.createScaledBitmap(bitmap, 512, 512, true);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            if (bitmap != null) {
+//                Log.e(TAG,"PHOTO BITMAP CREATED");
+//
+//                //Loading image
+//                Bitmap bmImg = BitmapFactory.decodeFile(mCurrentPhotoPath);
+//                mImageView.setImageBitmap(bmImg);
+//
+//                ProgressDialog progress = new ProgressDialog(this);
+//                progress.setTitle("Loading");
+//                progress.setMessage("ছবি পাঠানো হচ্ছে....");
+//                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+//                progress.show();
+//
+//                final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.chobi_upload_hocche );
+//                mediaPlayer.start(); // no need to call prepare(); create() does that for you
+//                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mp) {
+//                        mp.reset();
+//                        mp.release();
+//                        mp=null;
+//                    }
+//                });
+//
+//                //Upload Original File
+//                //UploadFile(progress);
+//
+//                //Upload resized bitmap
+//                UploadBitmap(resized,progress);
+//
+//
+//            }
+//        }
 
         //Gallery option request
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && intent != null && intent.getData() != null) {
+        else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            Uri uri = intent.getData();
+            Uri uri = data.getData();
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -483,7 +533,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     downloadUri = task.getResult();
-                    String download_url = downloadUri.toString();
+                    download_url = downloadUri.toString();
                     last_url_ref.setValue(download_url);
                     Log.e("Debug", "onSuccess: uri= "+ download_url);
                     //Updating last entry
@@ -523,6 +573,7 @@ public class MainActivity extends AppCompatActivity {
                 mp=null;
                 progress.dismiss();
                 Intent i = new Intent(getApplicationContext(),ResultActivity.class);
+                i.putExtra("download_url",download_url);
                 startActivity(i);
 
             }

@@ -1,56 +1,5 @@
-
+from __future__ import division
 import numpy as np
-
-# from keras.models import load_model
-# import tensorflow
-
-# model_url =  "N:/RiceDetectionGithub/tfModels/model1.h5" #"C:/Users/Sakib Mukter/Desktop/RiceProject/model1.h5"
-# #Keras Model
-# print("Loading Modedl")
-
-# model = load_model(model_url)
-# # graph = tensorflow.get_default_graph()
-# print("MODEL-LOADED")
-
-
-
-
-# # readDir = 'C:/Users/Sakib Mukter/Desktop/RiceProject/Segmented/CrowdAI-Train-Test/color/Apple___Apple_scab/'
-# readDir = 'N:/Rice Detection/PlantVillage CrodAi-Labeled/PlantVillage-Dataset/raw/color/Apple___Apple_scab/'
-        
-
-# readImage = readDir + '0b1e31fa-cbc0-41ed-9139-c794e6855e82___FREC_Scab 3089.JPG'
-
-
-
-
-# import cv2
-# from keras.preprocessing.image import img_to_array
-# #Import in opencv 
-# IMG_SIZE = 256
-# img_array = cv2.imread(readImage) 
-# new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE)) #RESIZE MAGES
-# img_array = img_to_array(new_array)
-
-# #Normalizing image numpy array
-# np_image_test = np.array(img_array, dtype=np.float16) / 225.0
-
-# #Expand dimension to predict the model in keras
-# np_image_test = np.expand_dims(np_image_test, axis=0)
-
-
-
-
-# model.summary()
-
-
-
-# global graph
-# with graph.as_default():
-#     #Predict image
-# print("prediction called")
-# a = model.predict(np_image_test)
-
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -63,6 +12,7 @@ from firebase_admin import db
 import requests
 import tensorflow
 from keras.models import load_model
+import functions as f1
 
 BASE_DIR = os.getcwd()
 BASE_DIR = BASE_DIR.replace("\\","/")
@@ -128,10 +78,13 @@ def hello():
     ref = db.reference('last_entry')
     url_ref = db.reference('last_url')
     prediction_ref = db.reference('prediction')
+    last_name_ref = db.reference('last_name')
+    last_done_ref = db.reference('last_done')
 
     global Last_id
     image_url = url_ref.get()
     last_entry =ref.get()
+    # last_name = last_name_ref.get()
 
     if(Last_id==-1 or last_entry!=Last_id):
         Last_id = last_entry
@@ -158,93 +111,103 @@ def hello():
         a = img.shape
         print(a)
 
+
+        contour_size = f1.DetectLeaf(img)
+
+        print(contour_size)
+
         # hue sat value -hsv
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        IMG_SIZE = 256
+        new_array = cv2.resize(hsv, (IMG_SIZE, IMG_SIZE)) #RESIZE MAGES
+        img = new_array
 
-        #Thresholding Segment using hsv
-        lower_green = np.array([0,48,0])    #lower value 
-        upper_green = np.array([255,255,255])   #upper value
-
-        mask = cv2.inRange(hsv, lower_green, upper_green)
+        #Green upper and lowerbound
+        lower_green = np.array([36,0,0])
+        upper_green = np.array([86,255,255])
+        mask = cv2.inRange(img, lower_green, upper_green)
         res = cv2.bitwise_and(img,img, mask= mask)
 
+        ratio_brown = cv2.countNonZero(mask)/(img.size/3)
+        ratio_percentage = np.round(ratio_brown*100, 2)
+        print('green pixel percentage:', ratio_percentage)
 
+        if ratio_percentage < 20:
+            print("No leaf detected")
+            return render_template('no-img.html')
 
-        write_Orginal = writeDir + 'orginal.jpg'
-        write_mask = writeDir + 'mask.jpg'
-        write_segmented = writeDir + 'segmented.jpg' 
-        cv2.imwrite(write_Orginal,img)
-        cv2.imwrite(write_mask,mask)
-        cv2.imwrite(write_segmented,res)
+        elif ratio_percentage >= 20:
+            img_array = img_to_array(new_array)
+            #Normalizing image numpy array
+            np_image_test = np.array(img_array, dtype=np.float16) / 225.0
 
+            #Expand dimension to predict the model in keras
+            np_image_test = np.expand_dims(np_image_test, axis=0)
 
-        
+            global graph
+            with graph.as_default():
+                #Predict image
+                print("prediction called")
+                a = model.predict(np_image_test)
 
-        IMG_SIZE = 256
-        img_array = cv2.imread(write_Orginal) 
-        new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE)) #RESIZE MAGES
-        img_array = img_to_array(new_array)
+                
+                pred_list = a
+                pred_list = np.around(pred_list, decimals=2)
+                
+                pred_list.sort()
+                pred_single = pred_list[0]
 
+                pred_single[:] = pred_single[::-1]
 
-        #Normalizing image numpy array
-        np_image_test = np.array(img_array, dtype=np.float16) / 225.0
+                result_pb = pred_single[:3]
+                
+                print("pred_single=",pred_single)
 
-        #Expand dimension to predict the model in keras
-        np_image_test = np.expand_dims(np_image_test, axis=0)
+                a = model.predict_classes(np_image_test)
+                
+                result = CATEGORIES[int(a)]
+                prediction_result = 'Image prediction - '+ result
 
-        
-        global graph
-        with graph.as_default():
-            #Predict image
-            print("prediction called")
-            a = model.predict(np_image_test)
+                print(prediction_result)
+
+            # plt.imshow(new_array)
+            # plt.show()
+            # img_array
+
+            prediction_ref.set({
+                'pred': result
+                })
+
 
             
-            pred_list = a[0]*100
-            pred_list = np.around(pred_list, decimals=2)
 
-            a = model.predict_classes(np_image_test)
+            # with open(write_segmented, "rb") as f:
+            #   str1 = base64.b64encode(f.read())
+            #   # print(str1)
+
             
-            result = CATEGORIES[int(a)]
-            prediction_result = 'Image prediction - '+ result
 
-            print(prediction_result)
-        # plt.imshow(new_array)
-        # plt.show()
-        # img_array
+            #Plotting Images
+            # plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
+            # plt.xticks([]), plt.yticks([])
+            # plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
+            # plt.xticks([]), plt.yticks([])
+            # plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
+            # plt.xticks([]), plt.yticks([])
+            # plt.show(block=False)
+            # plt.pause(2)
+            # plt.close('all')
+            
+            
 
-        prediction_ref.set({
-            'pred': result
-            })
+            last_name_ref.set(image_url)
+            last_done_ref.set(last_entry)
 
-
-        
-
-        # with open(write_segmented, "rb") as f:
-        #   str1 = base64.b64encode(f.read())
-        #   # print(str1)
-
-        
-
-        #Plotting Images
-        plt.subplot(131),plt.imshow(img,cmap = 'gray'),plt.title("img")
-        plt.xticks([]), plt.yticks([])
-        plt.subplot(132),plt.imshow(mask,cmap = 'gray'),plt.title('mask')
-        plt.xticks([]), plt.yticks([])
-        plt.subplot(133),plt.imshow(res,cmap = 'gray'),plt.title('res')
-        plt.xticks([]), plt.yticks([])
-        plt.show(block=False)
-        plt.pause(2)
-        plt.close('all')
-        
-        
+            datas = {'a': a,"prediction":prediction_result,
+                    "image_url":image_url,"pred_list":result_pb}
 
 
-
-        datas = {'a': a,"prediction":prediction_result,
-                "image_url":image_url,"pred_list":pred_list}
-
-        return render_template('img_processor.html', **datas)
+            return render_template('img_processor.html', **datas)
 
     else :
         print("No new image Last id = %d" % Last_id)
