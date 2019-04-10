@@ -126,7 +126,7 @@ public class ResultActivity extends AppCompatActivity {
         rv = (RecyclerView)findViewById(R.id.rvResult);
 
         rv.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         Log.e("Pd","rv init");
 
