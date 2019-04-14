@@ -585,6 +585,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("download_url",download_url);
                 startActivity(i);
 
+
             }
         });
     }
@@ -608,7 +609,7 @@ public class MainActivity extends AppCompatActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("Req","That didn't work!");
+                            Log.e("Req","No response from server!");
                         }
                     });
 

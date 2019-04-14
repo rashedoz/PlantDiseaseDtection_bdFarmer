@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         final Context context = this;
 
         final MediaPlayer mp;
-        mp = MediaPlayer.create(context, R.raw.chobir_menu_te_jan);
+        mp = MediaPlayer.create(context, R.raw.hbs);
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -36,13 +36,59 @@ public class HomeActivity extends AppCompatActivity {
         });
         mp.start();
 
+        /* Icon Plant Details activity*/
         ImageView appleIcn =(ImageView) findViewById(R.id.appleicon);
+        ImageView grapeIcn =(ImageView) findViewById(R.id.grapeicon);
+        ImageView cornIcn =(ImageView) findViewById(R.id.cornIcon);
+        ImageView potatoIcn =(ImageView) findViewById(R.id.potatoIcon);
+        ImageView tomatoIcn =(ImageView) findViewById(R.id.tomatoIcon);
+
         appleIcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,PlantDetails.class));
+                Intent i = new Intent(getApplicationContext(),PlantDetails.class);
+                i.putExtra("plantName","Apple");
+                startActivity(i);
+
             }
         });
+//        grapeIcn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getApplicationContext(),PlantDetails.class);
+//                i.putExtra("plantName","Apple");
+//                startActivity(i);
+//
+//            }
+//        });
+        cornIcn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),PlantDetails.class);
+                i.putExtra("plantName","Corn");
+                startActivity(i);
+
+            }
+        });
+        potatoIcn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),PlantDetails.class);
+                i.putExtra("plantName","Potato");
+                startActivity(i);
+
+            }
+        });
+        tomatoIcn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),PlantDetails.class);
+                i.putExtra("plantName","Tomato");
+                startActivity(i);
+
+            }
+        });
+
 
 
         ImageView camBtn = (ImageView) findViewById(R.id.camBtn);

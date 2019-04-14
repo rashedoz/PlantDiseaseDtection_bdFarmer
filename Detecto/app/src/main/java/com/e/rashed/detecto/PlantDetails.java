@@ -29,6 +29,8 @@ public class PlantDetails extends AppCompatActivity {
     public RVAdapter adapter;
     public RecyclerView rv;
 
+    public String plantName;
+
 
 
     @Override
@@ -36,7 +38,21 @@ public class PlantDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_details);
 
-        initializeData();
+
+        //Get Extras
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                plantName= null;
+            } else {
+                plantName= extras.getString("plantName");
+            }
+        } else {
+            plantName= (String) savedInstanceState.getSerializable("plantName");
+        }
+
+        initializeData(plantName);
         Log.e("Pd","Data initialized");
 
         rv = (RecyclerView)findViewById(R.id.rv);
@@ -70,15 +86,18 @@ public class PlantDetails extends AppCompatActivity {
 //        persons.add(new Person("Lillie Watts", "35 years old", R.drawable.apple, "asd"));
 //    }
 
-    private void initializeData(){
+    private void initializeData(String plantName){
         persons = new ArrayList<>();
 
         DatabaseReference plant;
         DatabaseReference diseases;
 
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         plant = database.getReference("AndroidApp");
-        diseases = database.getReference("AndroidApp/Apple/Diseases");
+
+        String make_path = "AndroidApp/" + plantName + "/Diseases";
+        diseases = database.getReference(make_path);
 
         diseases.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

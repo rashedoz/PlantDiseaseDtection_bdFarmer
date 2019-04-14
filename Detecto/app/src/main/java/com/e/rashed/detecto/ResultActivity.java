@@ -76,14 +76,14 @@ public class ResultActivity extends AppCompatActivity {
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
 
-        progress.dismiss();
+
 
         last_name.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 pred_name_str = dataSnapshot.getValue(String.class);
                 if (pred_name_str.equals(download_url)){
-
+                    progress.dismiss();
                 }
             }
 
@@ -126,6 +126,7 @@ public class ResultActivity extends AppCompatActivity {
         rv = (RecyclerView)findViewById(R.id.rvResult);
 
         rv.setHasFixedSize(true);
+//        LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         Log.e("Pd","rv init");

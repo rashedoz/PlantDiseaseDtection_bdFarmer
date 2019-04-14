@@ -2,6 +2,7 @@ package com.e.rashed.detecto;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +52,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.personName.setText(persons.get(i).name);
         personViewHolder.personAge.setText(persons.get(i).age);
+        //textview formatting
+        personViewHolder.personAge.setMaxLines(4);
+        personViewHolder.personAge.setEllipsize(TextUtils.TruncateAt.END);
+
 //        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
-        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/01a66316-0e98-4d3b-a56f-d78752cd043f___FREC_Scab%203003.JPG?alt=media&token=0568a6f3-1d12-47b4-ab9a-f4444bcb3866").into(personViewHolder.personPhoto);
+        Picasso.get().load(persons.get(i).photo_url).into(personViewHolder.personPhoto);
 
          }
 
