@@ -1,12 +1,14 @@
 package com.e.rashed.detecto;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,16 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
     TextView mTextview;
     TextView diseaseTxt;
     DatabaseReference pred_text_ref;
-    DatabaseReference last_name;
     public String pred_result;
-
-    public String pred_name_str;
-
 
     //Recyclerview
     private RecyclerView recyclerView;
@@ -36,6 +35,7 @@ public class ResultActivity extends AppCompatActivity {
     public List<Person> persons;
     public RVAdapter adapter;
     public RecyclerView rv;
+    public ArrayList<String> top_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +44,19 @@ public class ResultActivity extends AppCompatActivity {
 
         //Get Extras
 
-        final String download_url;
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                download_url= null;
+                top_4= null;
             } else {
-                download_url= extras.getString("download_url");
+                top_4= extras.getStringArrayList("top_4");
             }
         } else {
-            download_url= (String) savedInstanceState.getSerializable("download_url");
+            top_4= (ArrayList<String>) savedInstanceState.getSerializable("top_4");
         }
+
+        Log.e("Ra","t_4"+ top_4.get(0));
 
 
 
@@ -62,36 +64,23 @@ public class ResultActivity extends AppCompatActivity {
         mTextview = (TextView) findViewById(R.id.predText);
         diseaseTxt = (TextView) findViewById(R.id.predText2);
 
+        if(top_4.get(0).equals("Not Leaf")){
+            Log.e("Ra","nhiding visibilty text");
+            Intent i = new Intent(getApplicationContext(), NoLeafActivity.class);
+            i.putExtra("top_4", top_4);
+            startActivity(i);
+        }
+
         // Write a message to the database
          FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        last_entry_ref = database.getReference("last_entry");
 //        last_url_ref = database.getReference("last_url");
-        last_name = database.getReference("last_name");
+
         pred_text_ref = database.getReference("prediction/pred");
 
-        final ProgressDialog progress = new ProgressDialog(this);
-        progress.setTitle("Processing..");
-        progress.setMessage("অপেক্ষা করুন....");
-        progress.setIcon(R.drawable.camera);
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
 
 
 
-        last_name.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pred_name_str = dataSnapshot.getValue(String.class);
-                if (pred_name_str.equals(download_url)){
-                    progress.dismiss();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         // Read from the database the lastEntry
         pred_text_ref.addValueEventListener(new ValueEventListener() {
@@ -156,36 +145,60 @@ public class ResultActivity extends AppCompatActivity {
         DatabaseReference plant;
         DatabaseReference diseases;
 
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         plant = database.getReference("AndroidApp");
-        diseases = database.getReference("AndroidApp/Apple/Diseases");
+//        diseases = database.getReference("AndroidApp/Apple/Diseases");
 
-        diseases.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for(int i=0;i<top_4.size();i++) {
+            String n = top_4.get(i);
+            String[] name = n.split(" ", 2);
+            Log.e("Res", "name=" + name[0] + "--" + name[1]);
 
-                ArrayList<String> disease_list = new ArrayList<String>();
+            String path = "AndroidApp/" + name[0] + "/Diseases/" + n;
+            Log.e("ResultactivityD", "path=" + path);
+            diseases = database.getReference(path);
+//            diseases = database.getReference("AndroidApp/Apple/Diseases/Apple Black Rot");
 
-                for(DataSnapshot dsp: dataSnapshot.getChildren()){
-                    Log.e("Resultactivity","dsp="+dsp.getValue());
-                    String image_url = (String) dsp.child("image_url").getValue();
-                    String disese_name = (String) dsp.child("Name").getValue();
-                    String remedy_url = (String) dsp.child("Remedy").getValue();
-                    String remedy_short = (String) dsp.child("RemedyWord").getValue();
 
-                    persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
-                    Log.e("Resultactivity","n="+disese_name+image_url);
+//            String image_url = (String) dsp.child("image_url").getValue();
+//            String disese_name = (String) dsp.child("Name").getValue();
+//            String remedy_url = (String) dsp.child("Remedy").getValue();
+//            String remedy_short = (String) dsp.child("RemedyWord").getValue();
+//
+//            persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
+//            Log.e("Resultactivity","n="+disese_name+image_url);
+
+
+            diseases.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dsp) {
+
+//                    ArrayList<String> disease_list = new ArrayList<String>();
+////                    Log.e("ResultactivityD", "dsp=" + dsp.getValue());
+
+
+                Log.e("ResultactivityD", "dsp=" + dsp.getValue());
+                String image_url = (String) dsp.child("image_url").getValue();
+                String disese_name = (String) dsp.child("Name").getValue();
+                String remedy_url = (String) dsp.child("Remedy").getValue();
+                String remedy_short = (String) dsp.child("RemedyWord").getValue();
+
+                persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
+                Log.e("Resultactivity", "n=" + disese_name + image_url);
+
+
+                    rv.setAdapter(adapter);
 
                 }
-                rv.setAdapter(adapter);
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
 
-            }
-        });
+        }
 
 
 

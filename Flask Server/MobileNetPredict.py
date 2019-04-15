@@ -72,36 +72,36 @@ labels = {0: 'অ্যাপল__স্ক্যাব',
     20: 'টমেটো__সেপটোরিয়া_লিফ_স্পট',
     21: 'টমেটো__স্পাইডার_মাইট',
     22: 'টমেটো__র্টাগেট_স্পট',
-    23: 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
-    24: 'টমেটো__ইয়লো_লিফ',
+    23: 'টমেটো__ইয়লো_লিফ_',
+    24: 'টমেটো__মোজাইক_ভাইরাস',
     25: 'টমেটো__সুস্থ'}
 
-labels_english = {0: 'Apple___Apple_scab',
-    1: 'Apple___Black_rot',
-    2: 'Apple___Cedar_apple_rust',
-    3: 'Apple___healthy',
-    4: 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
-    5: 'Corn_(maize)___Common_rust_',
-    6: 'Corn_(maize)___Northern_Leaf_Blight',
-    7: 'Corn_(maize)___healthy',
-    8: 'Grape___Black_rot',
-    9: 'Grape___Esca_(Black_Measles)',
-    10: 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
-    11: 'Grape___healthy',
-    12: 'Not__Leaf',
-    13: 'Potato___Early_blight',
-    14: 'Potato___Late_blight',
-    15: 'Potato___healthy',
-    16: 'Tomato___Bacterial_spot',
-    17: 'Tomato___Early_blight',
-    18: 'Tomato___Late_blight',
-    19: 'Tomato___Leaf_Mold',
-    20: 'Tomato___Septoria_leaf_spot',
-    21: 'Tomato___Spider_mites Two-spotted_spider_mite',
-    22: 'Tomato___Target_Spot',
-    23: 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
-    24: 'Tomato___Tomato_mosaic_virus',
-    25: 'Tomato___healthy'}
+labels_english = {0: 'Apple Scab',
+    1: 'Apple Black Rot',
+    2: 'Apple Cedar Apple Rust',
+    3: 'Apple Healthy',
+    4: 'Corn Cercospora Leaf Spot Gray Leaf Spot',
+    5: 'Corn Common Rust',
+    6: 'Corn Northern Leaf Blight',
+    7: 'Corn Healthy',
+    8: 'Grape Black Rot',
+    9: 'Grape Esca  Black Measles ',
+    10: 'Grape Leaf Blight (Isariopsis_Leaf_Spot)',
+    11: 'Grape Healthy',
+    12: 'Not Leaf',
+    13: 'Potato Early Blight',
+    14: 'Potato Late Blight',
+    15: 'Potato Healthy',
+    16: 'Tomato Bacterial Spot',
+    17: 'Tomato Early Blight',
+    18: 'Tomato Late Blight',
+    19: 'Tomato Leaf Mold',
+    20: 'Tomato Septoria Leaf Spot',
+    21: 'Tomato Spider Mite',
+    22: 'Tomato Target Spot',
+    23: 'Tomato Yellow Leaf Curl Virus',
+    24: 'Tomato Mosaic Virus',
+    25: 'Tomato Healthy'}
 
 
  #Image Preprocessing
@@ -119,10 +119,9 @@ def MakePred(image_dir):
     
     #Predicted class indicies
     predicted_class_indices=np.argmax(predictions,axis=1)
-    predicted_class_indices
     
 #     print(labels[int(predicted_class_indices)])
-    return str(labels[int(predicted_class_indices)]), predictions
+    return str(labels[int(predicted_class_indices)]), predictions , str(labels_english[int(predicted_class_indices)]),
 
   
 from flask import Flask, request, jsonify, render_template
@@ -175,12 +174,13 @@ def hello():
         global graph
         with graph.as_default():
             
-            result, prediction_list= MakePred(write_url)
+            result, prediction_list, res_eng= MakePred(write_url)
 
             #Get largest predictions
-            print(prediction_list)
+           
             p_l = prediction_list[0]
-            pred_list = np.around(prediction_list, decimals=2)
+            pred_list = np.around(p_l, decimals=2)
+            print(pred_list)
             indexes_top_4 = np.argpartition(p_l, -4)[-4:] 
             print(indexes_top_4)
             top_4_names = []
@@ -188,14 +188,17 @@ def hello():
                 name = str(labels_english[int(x)])
                 print("N=",name,x)
                 top_4_names.append(name)
-            print(top_4_names)
 
-            prediction_result = 'Image prediction - '+ result
+            print(top_4_names)
+            top_4_names.reverse()
+
+            prediction_result = 'Image prediction - '+ res_eng
             print(prediction_result)
 
 
         prediction_ref.set({
-            'pred': result
+            'pred': result,
+            'pred_eng': res_eng
             })
 
 

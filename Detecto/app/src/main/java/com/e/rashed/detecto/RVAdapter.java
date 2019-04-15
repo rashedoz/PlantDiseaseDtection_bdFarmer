@@ -59,6 +59,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
 //        personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
         Picasso.get().load(persons.get(i).photo_url).into(personViewHolder.personPhoto);
 
+        //OnclickListener
+//        personViewHolder.personPhoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
          }
 
     @Override

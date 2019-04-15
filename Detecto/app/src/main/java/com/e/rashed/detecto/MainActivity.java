@@ -581,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Call Server Uri
                 //SendServerRequest();
-                Intent i = new Intent(getApplicationContext(),ResultActivity.class);
+                Intent i = new Intent(getApplicationContext(),LoadingActivity.class);
                 i.putExtra("download_url",download_url);
                 startActivity(i);
 
