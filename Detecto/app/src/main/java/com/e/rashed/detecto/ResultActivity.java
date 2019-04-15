@@ -103,9 +103,14 @@ public class ResultActivity extends AppCompatActivity {
                 pred_result = dataSnapshot.getValue(String.class);
                 Log.d("Debug", "Prediction is: " + pred_result);
                 String[] namesList = pred_result.split("__");
+                String pName = namesList[0];
+                String dName = namesList[1];
 
-                mTextview.setText(namesList[0]);
-                diseaseTxt.setText(namesList[1]);
+                pName = pName.replace('_',' ');
+                dName = dName.replace('_',' ');
+
+                mTextview.setText(pName);
+                diseaseTxt.setText(dName);
 
 
             }

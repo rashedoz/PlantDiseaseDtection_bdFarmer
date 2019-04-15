@@ -49,7 +49,34 @@ Last_id = -1
 print("Last id = %d" % Last_id)
 
 
-labels = {0: 'Apple___Apple_scab',
+labels = {0: 'অ্যাপল__স্ক্যাব',
+    1: 'অ্যাপল__ব্লাক_রট',
+    2: 'অ্যাপল__সিডার_অ্যাপল_আরস্ট',
+    3: 'অ্যাপল__সুস্থ',
+    4: 'ভূট্রা__ছারকোসপোরা_লিফ_স্পট',
+    5: 'ভূট্রা__কমন_ রাস্ট',
+    6: 'ভূট্রা__নর্থদান_লেছ_ব্লাইড',
+    7: 'ভূট্রা__সুস্থ',
+    8: 'আঙ্গুর__ব্লাক_রট',
+    9: 'আঙ্গুর__এসকা',
+    10: 'আঙ্গুর__লিফ_ব্লাইড',
+    11: 'আঙ্গুর__সুস্থ',
+    12: '!__পাতা নেই ',
+    13: 'আলু__আরলি_ব্লাইড',
+    14: 'আলু__লেট_ব্লাইড',
+    15: 'আলু__সুস্থ',
+    16: 'টমেটো__ব্যাকটেরিয়াল_স্পট',
+    17: 'টমেটো__আরলি_ব্লাইড',
+    18: 'টমেটো__লেট_ব্লাইড',
+    19: 'টমেটো__লিফ_মল্ড',
+    20: 'টমেটো__সেপটোরিয়া_লিফ_স্পট',
+    21: 'টমেটো__স্পাইডার_মাইট',
+    22: 'টমেটো__র্টাগেট_স্পট',
+    23: 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
+    24: 'টমেটো__ইয়লো_লিফ',
+    25: 'টমেটো__সুস্থ'}
+
+labels_english = {0: 'Apple___Apple_scab',
     1: 'Apple___Black_rot',
     2: 'Apple___Cedar_apple_rust',
     3: 'Apple___healthy',
@@ -76,6 +103,7 @@ labels = {0: 'Apple___Apple_scab',
     24: 'Tomato___Tomato_mosaic_virus',
     25: 'Tomato___healthy'}
 
+
  #Image Preprocessing
 def prepare_image(file):
     img_path = ''
@@ -94,7 +122,7 @@ def MakePred(image_dir):
     predicted_class_indices
     
 #     print(labels[int(predicted_class_indices)])
-    return str(labels[int(predicted_class_indices)])
+    return str(labels[int(predicted_class_indices)]), predictions
 
   
 from flask import Flask, request, jsonify, render_template
@@ -117,6 +145,7 @@ def hello():
     prediction_ref = db.reference('prediction')
     last_name_ref = db.reference('last_name')
     last_done_ref = db.reference('last_done')
+    top_4_ref = db.reference('prediction/top_4')
 
     global Last_id
     image_url = url_ref.get()
@@ -146,10 +175,22 @@ def hello():
         global graph
         with graph.as_default():
             
-            result = MakePred(write_url)
+            result, prediction_list= MakePred(write_url)
+
+            #Get largest predictions
+            print(prediction_list)
+            p_l = prediction_list[0]
+            pred_list = np.around(prediction_list, decimals=2)
+            indexes_top_4 = np.argpartition(p_l, -4)[-4:] 
+            print(indexes_top_4)
+            top_4_names = []
+            for x in indexes_top_4:
+                name = str(labels_english[int(x)])
+                print("N=",name,x)
+                top_4_names.append(name)
+            print(top_4_names)
 
             prediction_result = 'Image prediction - '+ result
-
             print(prediction_result)
 
 
@@ -160,6 +201,7 @@ def hello():
 
         last_name_ref.set(image_url)
         last_done_ref.set(last_entry)
+        top_4_ref.set(top_4_names)
 
         datas = {"prediction":prediction_result,
                 "image_url":image_url}

@@ -68,7 +68,7 @@
                         android:id="@+id/appleicon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/apple" />
+                        android:src="@drawable/green_apple_icon" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="আপেল "
-                        android:textColor="@android:color/holo_red_dark"
+                        android:textColor="@color/corngreen"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:fontFamily="sans-serif-medium" />
