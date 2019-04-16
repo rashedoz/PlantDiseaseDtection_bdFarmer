@@ -43,8 +43,6 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         //Get Extras
-
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -68,6 +66,7 @@ public class ResultActivity extends AppCompatActivity {
             Log.e("Ra","nhiding visibilty text");
             Intent i = new Intent(getApplicationContext(), NoLeafActivity.class);
             i.putExtra("top_4", top_4);
+            finish();
             startActivity(i);
         }
 
@@ -125,7 +124,7 @@ public class ResultActivity extends AppCompatActivity {
         rv.setLayoutManager(llm);
         Log.e("Pd","rv init");
 
-        adapter = new RVAdapter(persons);
+        adapter = new RVAdapter(persons,this);
         if (adapter.getItemCount()!=0) {
             Log.e("Pd", "adapter initialized" + persons.get(0).name);
             rv.setAdapter(adapter);
@@ -184,7 +183,7 @@ public class ResultActivity extends AppCompatActivity {
                 String remedy_url = (String) dsp.child("Remedy").getValue();
                 String remedy_short = (String) dsp.child("RemedyWord").getValue();
 
-                persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
+                persons.add(new Person(disese_name, remedy_short, remedy_url, image_url));
                 Log.e("Resultactivity", "n=" + disese_name + image_url);
 
 

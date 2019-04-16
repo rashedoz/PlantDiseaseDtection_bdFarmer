@@ -6,14 +6,29 @@ import java.util.List;
 class Person {
     String name;
     String age;
-    int photoId;
+    String remedy_url;
     String photo_url;
 
-    Person(String name, String age, int photoId, String photo_url) {
+    Person(String name, String age, String remedy_url, String photo_url) {
         this.name = name;
         this.age = age;
-        this.photoId = photoId;
+        this.remedy_url = remedy_url;
         this.photo_url = photo_url;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStr() {
+        return age;
+    }
+
+    public String getUrl() {
+        return photo_url;
+    }
+
+
+
 }
 

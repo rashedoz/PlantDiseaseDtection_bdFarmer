@@ -60,7 +60,6 @@ public class LoadingActivity extends AppCompatActivity {
                 if (pred_name_str.equals(download_url)){
                     progress.dismiss();
                     get_top4();
-
                 }
             }
 
@@ -93,6 +92,7 @@ public class LoadingActivity extends AppCompatActivity {
                 if(top_4.size()==4) {
                     Intent i = new Intent(getApplicationContext(), ResultActivity.class);
                     i.putExtra("top_4", top_4);
+                    finish();
                     startActivity(i);
                 }
             }

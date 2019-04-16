@@ -1,11 +1,14 @@
 package com.e.rashed.detecto;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,7 +64,8 @@ public class PlantDetails extends AppCompatActivity {
         rv.setLayoutManager(llm);
         Log.e("Pd","rv init");
 
-        adapter = new RVAdapter(persons);
+        Context mContext = this;
+        adapter = new RVAdapter(persons,mContext);
         if (adapter.getItemCount()!=0) {
             Log.e("Pd", "adapter initialized" + persons.get(0).name);
             rv.setAdapter(adapter);
@@ -70,6 +74,8 @@ public class PlantDetails extends AppCompatActivity {
         else {
             Log.e("Pd", "adapter empty");
         }
+
+
 
 
     }
@@ -112,7 +118,7 @@ public class PlantDetails extends AppCompatActivity {
                     String remedy_url = (String) dsp.child("Remedy").getValue();
                     String remedy_short = (String) dsp.child("RemedyWord").getValue();
 
-                    persons.add(new Person(disese_name, remedy_short, R.drawable.apple, image_url));
+                    persons.add(new Person(disese_name, remedy_short, remedy_url, image_url));
                     Log.e("Resultactivity","n="+disese_name+image_url);
 
 
@@ -128,9 +134,8 @@ public class PlantDetails extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+
 
 }

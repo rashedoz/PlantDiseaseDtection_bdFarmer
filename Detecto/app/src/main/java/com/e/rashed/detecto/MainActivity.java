@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         Button galleryBtn = (Button) findViewById(R.id.galleryBtn);
 
 
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.ekhane_click_korle_chobi_uthbe);
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_uthbe);
         mediaPlayer.start(); // no need to call prepare(); create() does that for you
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progress.show();
 
-                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_upload_hocche );
+                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_pathano_hocche );
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                 progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progress.show();
 
-                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_upload_hocche );
+                final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chobi_pathano_hocche );
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -569,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
 
-        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kichu_nei );
+        final MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.opekkha_korun);
         mediaPlayer.start(); // no need to call prepare(); create() does that for you
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

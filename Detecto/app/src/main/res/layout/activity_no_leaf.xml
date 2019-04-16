@@ -40,6 +40,25 @@
             android:textSize="20sp"
             android:layout_gravity="center"/>
 
+        <ImageView
+            android:id="@+id/camBtnRes"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/rsz_1camera_green"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="250dp"/>
+        <TextView
+            android:layout_marginLeft="240dp"
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ছবি তুলুন"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif-medium"
+            />
+
 
 
 
