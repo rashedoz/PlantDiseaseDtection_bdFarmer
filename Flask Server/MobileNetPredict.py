@@ -202,9 +202,10 @@ def hello():
             })
 
 
-        last_name_ref.set(image_url)
+       
         last_done_ref.set(last_entry)
         top_4_ref.set(top_4_names)
+        last_name_ref.set(image_url)
 
         datas = {"prediction":prediction_result,
                 "image_url":image_url}
