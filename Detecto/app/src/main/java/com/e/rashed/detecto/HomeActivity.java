@@ -1,5 +1,6 @@
 package com.e.rashed.detecto;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -23,18 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
         final Context context = this;
 
-        final MediaPlayer mp;
-        mp = MediaPlayer.create(context, R.raw.chobir_menu_te_jabe);
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-                mp.reset();
-                mp.release();
-                mp=null;
-            }
-        });
-        mp.start();
+
 
         /* Icon Plant Details activity*/
         ImageView appleIcn =(ImageView) findViewById(R.id.appleicon);
@@ -42,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageView cornIcn =(ImageView) findViewById(R.id.cornIcon);
         ImageView potatoIcn =(ImageView) findViewById(R.id.potatoIcon);
         ImageView tomatoIcn =(ImageView) findViewById(R.id.tomatoIcon);
+        ImageView tBtn =(ImageView) findViewById(R.id.tBtn);
 
         appleIcn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +98,51 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        TapTargetView.showFor(this,                 // `this` is an Activity
+        tBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),TutorialActivity.class);
+                startActivity(i);
+            }
+        });
+
+        final Context m = this;
+
+//        Toast.makeText(HomeActivity.this,
+//                "Clicked", Toast.LENGTH_LONG).show();
+        final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.awattadhin_rogshomuho );
+        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.reset();
+                mp.release();
+                mp=null;
+                final MediaPlayer mp2;
+                mp2 = MediaPlayer.create(context, R.raw.chobir_menu_te_jabe);
+                mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        // TODO Auto-generated method stub
+                        mp.reset();
+                        mp.release();
+                        mp=null;
+                    }
+                });
+                mp2.start();
+                targetView(m);
+            }
+        });
+
+
+
+
+
+    }
+
+    public void targetView(Context mContext){
+
+        TapTargetView.showFor((Activity) mContext,                 // `this` is an Activity
                 TapTarget.forView(findViewById(R.id.camBtn), "ছবির মেনু তে যান ", "এখানে  ক্লিক করলে ছবির মেনু তে যাবে")
                         // All options below are optional
                         .outerCircleColor(R.color.colorAccent)      // Specify a color for the outer circle
@@ -124,30 +159,14 @@ public class HomeActivity extends AppCompatActivity {
                         .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
                         .tintTarget(true)                   // Whether to tint the target view's color
                         .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
-                                                            // Specify a custom drawable to draw as the target
+                        // Specify a custom drawable to draw as the target
                         .targetRadius(60),                  // Specify the target radius (in dp)
                 new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
                     @Override
                     public void onTargetClick(TapTargetView view) {
                         super.onTargetClick(view);      // This call is optional
 
-                        Toast.makeText(HomeActivity.this,
-                                "Clicked", Toast.LENGTH_LONG).show();
-                        final MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.awattadhin_rogshomuho );
-                        mediaPlayer.start(); // no need to call prepare(); create() does that for you
-                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                mp.reset();
-                                mp.release();
-                                mp=null;
-                            }
-                        });
                     }
                 });
-
-        if(!mp.isPlaying())
-            mp.release();
-
     }
 }

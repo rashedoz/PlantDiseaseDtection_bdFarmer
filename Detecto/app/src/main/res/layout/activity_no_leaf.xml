@@ -40,12 +40,27 @@
             android:textSize="20sp"
             android:layout_gravity="center"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ly"
+            android:id="@+id/fl"
+            android:layout_marginTop="10dp"
+
+            >
+            <VideoView
+                android:id="@+id/videoView1"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
         <ImageView
             android:id="@+id/camBtnRes"
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:srcCompat="@drawable/rsz_1camera_green"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="250dp"/>
         <TextView
             android:layout_marginLeft="240dp"
@@ -59,10 +74,7 @@
             app:fontFamily="sans-serif-medium"
             />
 
-
-
-
-
     </LinearLayout>
+
 
 </ScrollView>

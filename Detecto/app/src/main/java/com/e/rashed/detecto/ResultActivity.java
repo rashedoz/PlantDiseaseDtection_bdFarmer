@@ -2,6 +2,7 @@ package com.e.rashed.detecto;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,6 +69,20 @@ public class ResultActivity extends AppCompatActivity {
             i.putExtra("top_4", top_4);
             finish();
             startActivity(i);
+        }
+        else{
+            MediaPlayer mp2;
+            mp2 = MediaPlayer.create(this, R.raw.chobir_folafol);
+            mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    // TODO Auto-generated method stub
+                    mp.reset();
+                    mp.release();
+                    mp=null;
+                }
+            });
+            mp2.start();
         }
 
         // Write a message to the database

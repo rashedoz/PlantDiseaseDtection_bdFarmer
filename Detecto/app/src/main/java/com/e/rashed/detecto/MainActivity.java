@@ -120,8 +120,10 @@ public class MainActivity extends AppCompatActivity {
                 mp=null;
             }
         });
+        final Context mContext = this;
+
         TapTargetView.showFor(this,                 // `this` is an Activity
-                TapTarget.forView(findViewById(R.id.cameraBtn), "ছবি তুলুন ", "এখানে  ক্লিক করলে ছবি উঠবে")
+                TapTarget.forView(findViewById(R.id.cameraBtn), "ছবি তুলুন ", "এখানে  চাপলে  ছবি উঠবে")
                         // All options below are optional
                         .outerCircleColor(R.color.colorAccent)      // Specify a color for the outer circle
                         .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
@@ -144,8 +146,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onTargetClick(TapTargetView view) {
                         super.onTargetClick(view);      // This call is optional
 
-                        Toast.makeText(MainActivity.this,
-                                "Ready", Toast.LENGTH_LONG).show();
+                        final MediaPlayer mediaPlayer = MediaPlayer.create(mContext, R.raw.ager_menu);
+                        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+                        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.reset();
+                                mp.release();
+                                mp=null;
+                            }
+                        });
+                        targetView(mContext,R.id.galleryBtn);
+
+
+//                        Toast.makeText(MainActivity.this,
+//                                "Ready", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -580,7 +595,7 @@ public class MainActivity extends AppCompatActivity {
                 progress.dismiss();
 
                 //Call Server Uri
-                //SendServerRequest();
+                SendServerRequest();
                 Intent i = new Intent(getApplicationContext(),LoadingActivity.class);
                 i.putExtra("download_url",download_url);
                 startActivity(i);
@@ -597,9 +612,10 @@ public class MainActivity extends AppCompatActivity {
             // Instantiate the RequestQueue.
                     RequestQueue queue = Volley.newRequestQueue(this);
                     String url ="http://192.168.0.120:5000/";
+                    String server_ur = "http://34.73.136.82:5000";
 
             // Request a string response from the provided URL.
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, server_ur,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -615,6 +631,36 @@ public class MainActivity extends AppCompatActivity {
 
             // Add the request to the RequestQueue.
                     queue.add(stringRequest);
+    }
+
+    public void targetView(Context mContext, Integer id){
+
+        TapTargetView.showFor((Activity) mContext,                 // `this` is an Activity
+                TapTarget.forView(findViewById(id), "ছবির মেনু তে যান ", "এখানে  চাপলে আগের ছবি পাঠানো যাবে")
+                        // All options below are optional
+                        .outerCircleColor(R.color.colorAccent)      // Specify a color for the outer circle
+                        .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                        .targetCircleColor(R.color.colorPrimary)   // Specify a color for the target circle
+                        .titleTextSize(50)                  // Specify the size (in sp) of the title text
+                        .titleTextColor(R.color.bg)      // Specify the color of the title text
+                        .descriptionTextSize(30)            // Specify the size (in sp) of the description text
+                        .descriptionTextColor(R.color.corngreen)  // Specify the color of the description text
+                        .textColor(R.color.yellow)            // Specify a color for both the title and description text
+                        .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                        .dimColor(R.color.bg)            // If set, will dim behind the view with 30% opacity of the given color
+                        .drawShadow(true)                   // Whether to draw a drop shadow or not
+                        .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                        .tintTarget(true)                   // Whether to tint the target view's color
+                        .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                        // Specify a custom drawable to draw as the target
+                        .targetRadius(60),                  // Specify the target radius (in dp)
+                new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);      // This call is optional
+
+                    }
+                });
     }
 
 

@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/camera_green"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DiseaseDetails"></activity>
+        <activity android:name=".TutorialActivity"></activity>
+        <activity android:name=".DiseaseDetails" />
         <activity android:name=".NoLeafActivity" />
         <activity android:name=".LoadingActivity" />
         <activity android:name=".PlantDetails" />
