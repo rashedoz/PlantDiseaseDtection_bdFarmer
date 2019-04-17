@@ -33,7 +33,7 @@ public class TutorialActivity extends AppCompatActivity {
         mediaController.setAnchorView(videoView);
 
         //specify the location of media file
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tutorial_video);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.t_v2);
 
         //Setting MediaController and URI, then starting the videoView
         videoView.setMediaController(mediaController);
