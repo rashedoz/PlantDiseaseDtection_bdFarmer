@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="একই রোগসমূহ "
+        android:text="সম্ভাবনীয় রোগসমূহ: "
         android:textColor="@color/greendeep"
         android:textSize="20sp"
         />
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:orientation="vertical"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             />
 
 

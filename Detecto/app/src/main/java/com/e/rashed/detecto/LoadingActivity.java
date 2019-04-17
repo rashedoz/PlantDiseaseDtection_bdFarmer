@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class LoadingActivity extends AppCompatActivity {
     DatabaseReference last_name;
@@ -58,7 +59,15 @@ public class LoadingActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 pred_name_str = dataSnapshot.getValue(String.class);
                 if (pred_name_str.equals(download_url)){
+
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     progress.dismiss();
+
                     get_top4();
                 }
             }
@@ -76,6 +85,7 @@ public class LoadingActivity extends AppCompatActivity {
         top4_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("Reserror","top=datachange");
                 Boolean flag = false;
                 Log.e("La","t4="+dataSnapshot.getValue());
                 for(DataSnapshot dsp: dataSnapshot.getChildren()){
@@ -90,6 +100,7 @@ public class LoadingActivity extends AppCompatActivity {
                     top_4.add(s);
                 }
                 if(top_4.size()==4) {
+                    Log.e("Reserror","top=4");
                     Intent i = new Intent(getApplicationContext(), ResultActivity.class);
                     i.putExtra("top_4", top_4);
                     finish();

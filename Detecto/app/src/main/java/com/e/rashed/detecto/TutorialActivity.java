@@ -24,7 +24,7 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        ImageView camBtn =(ImageView) findViewById(R.id.camBtn);
+        ImageView camBtn =(ImageView) findViewById(R.id.camBtnT);
 
         VideoView videoView =(VideoView)findViewById(R.id.videoView1);
 
