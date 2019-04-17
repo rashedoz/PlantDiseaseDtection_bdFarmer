@@ -613,6 +613,7 @@ public class MainActivity extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(this);
                     String url ="http://192.168.0.120:5000/";
                     String server_ur = "http://34.73.136.82:5000";
+                    String s2=  "http://35.244.41.56:5000" ;
 
             // Request a string response from the provided URL.
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, server_ur,
@@ -625,12 +626,27 @@ public class MainActivity extends AppCompatActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("Req","No response from server!");
+                            Log.e("Req","No response from server 1!");
                         }
                     });
 
-            // Add the request to the RequestQueue.
-                    queue.add(stringRequest);
+                    StringRequest stringRequest2 = new StringRequest(Request.Method.GET, s2,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+            //                                    Log.e("Req","Response is: " + response.substring(0, 500));
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Req","No response from server 2!");
+                        }
+                    });
+
+                        // Add the request to the RequestQueue.
+                                queue.add(stringRequest);
+                                queue.add(stringRequest2);
     }
 
     public void targetView(Context mContext, Integer id){
