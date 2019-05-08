@@ -135,5 +135,3 @@ source ~/.bashrc
 License
 ----
 
-MIT
-
