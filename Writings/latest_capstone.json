@@ -1,0 +1,201 @@
+{
+  "AndroidApp" : {
+    "Apple" : {
+      "Diseases" : {
+        "Apple Black Rot" : {
+          "Name" : "অ্যাপল ব্ল্যাক রট",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-3",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত ফলকে আলাদা করতে হবে। আলো এবং বায়ু সঞ্চালনের জন্য ভাল ব্যবস্থা করতে হবে। মৃত এবং রোগাক্রান্ত অঙ্গসমূহকে আলাদা করতে হবে।  ",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2F7a081a31-bbfa-4a43-8579-3353f6672f76___JR_FrgE.S%202861.JPG?alt=media&token=3d13a9f6-ccae-4e19-a6f2-b0c6f4045cae"
+        },
+        "Apple Cedar Apple Rust" : {
+          "Name" : "সিডার আপেল রাস্ট",
+          "Remedy" : "https://www.planetnatural.com/pest-problem-solver/plant-disease/cedar-apple-rust/",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত ফলকে আলাদা করতে হবে। আলো এবং বায়ু সঞ্চালনের জন্য ভাল ব্যবস্থা করতে হবে। মৃত এবং রোগাক্রান্ত অঙ্গসমূহকে আলাদা করতে হবে। আগাছা পরিষ্কার করতে হবে এবং গাছকে ছত্রাক্মুক্ত করতে হবে.",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fcedar_apple_rust.JPG?alt=media&token=f77a7108-41b0-46df-a81b-e2e4eaecaf9d"
+        },
+        "Apple Healthy" : {
+          "Name" : "সুস্থ",
+          "Remedy" : "https://www.shutterstock.com/search/apple+leaf",
+          "RemedyWord" : "গাছের ভালো খেয়াল রাখুন যাতে কোন ধরনের রোগ আক্রমণ করতে না পারে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fapple_healthy.JPG?alt=media&token=47f7a9b8-5c7e-450d-8041-b97147497731"
+        },
+        "Apple Scab" : {
+          "Name" : "অ্যাপল স্ক্যাব",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-1",
+          "RemedyWord" : "আগাছা পরিষ্কার করতে হবে এবং গাছকে ছত্রাক্মুক্ত করতে হবে",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2F0e90fe4a-e8b6-4186-9429-a9fea180af9a___FREC_Scab%203391.JPG?alt=media&token=d0536301-da9e-43f7-8e38-af0d27606eb0"
+        }
+      }
+    },
+    "Corn" : {
+      "Diseases" : {
+        "Corn Cercospora Leaf Spot Gray Leaf Spot" : {
+          "Name" : "ভূট্রা ছারকোসপোরা লিফ স্পট",
+          "Remedy" : "https://www.pioneer.com/home/site/us/agronomy/crop-management/corn-insect-disease/gray-leaf-spot/",
+          "RemedyWord" : "টিল্ট ২৫০ ইসি- রোগের লক্ষন দেখা মাত্রই প্রতি ১০ লিটার পানিতে ১০ এমএল টিল্ট মিশিয়ে ৫ শতাংশ জমিতে ভালভাবে গাছ ভিজিয়ে স্প্রে করতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2FCorn_Cercospora_leaf_spot%20Gray_leaf_spot.JPG?alt=media&token=2f37cf20-f6bf-489c-b283-758a74eb4441"
+        },
+        "Corn Common Rust" : {
+          "Name" : "ভূট্রা কমন রাস্ট",
+          "Remedy" : "https://www.gardeningknowhow.com/edible/vegetables/corn/corn-rust-fungus-control.htm",
+          "RemedyWord" : "টিল্ট ২৫০ ইসি- রোগের লক্ষন দেখা মাত্রই প্রতি ১০ লিটার পানিতে ১০ এমএল টিল্ট মিশিয়ে ৫ শতাংশ জমিতে ভালভাবে গাছ ভিজিয়ে স্প্রে করতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2FRS_Rust%201904.JPG?alt=media&token=fca0db47-b0bf-40e1-87c3-3a45b47424cf"
+        },
+        "Corn Healthy" : {
+          "Name" : "সুস্থ",
+          "Remedy" : "https://www.shutterstock.com/search/corn+leaf",
+          "RemedyWord" : "গাছের ভালো খেয়াল রাখুন যাতে কোন ধরনের রোগ আক্রমণ করতে না পারে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fcorn_healthy.jpg?alt=media&token=28b8d833-39d0-4377-94c4-1692b220afbd"
+        },
+        "Corn Northern Leaf Blight " : {
+          "Name" : "ভূট্রা নর্থদান লিফ ব্লাইড",
+          "Remedy" : "https://www.gardeningknowhow.com/edible/vegetables/corn/northern-corn-leaf-blight-control.htm",
+          "RemedyWord" : "টিল্ট ২৫০ ইসি, ০.৫ এম এল ১০ লিটার পানিতে মিশিয়ে স্প্রে করতে হবে। সকাল বেলায় কেটে দেয়া চারার আশেপাশের মাটি খুড়ে কীড়া সংগ্রহ করে মেরে ফেলতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2FCorn_(maize)Northern_Leaf_Blight.JPG?alt=media&token=1042d2e7-b3ca-4f2e-8333-4c26091e8625"
+        }
+      }
+    },
+    "Grape" : {
+      "Diseases" : {
+        "Grape Black Rot" : {
+          "Name" : "আঙ্গুর ব্লাক রট",
+          "Remedy" : "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=18&cad=rja&uact=8&ved=2ahUKEwi2gMjEotXhAhWIrI8KHSQpD64QFjARegQIARAB&url=https%3A%2F%2Fgrapesandwine.cals.cornell.edu%2Fnewsletters%2Fappellation-cornell%2F2014-newsletters%2Fissue-17%2Fmanaging-black-rot&usg=AOvVaw1KCALTEP6YfPw-aOwuD2-B",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়। প্রয়োজনে কপার এবং সালফারের স্প্রে করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fgrape_black_rod.JPG?alt=media&token=3cbf99f2-a3ab-466f-950d-6410763ba6f3"
+        },
+        "Grape Esca Black Measles" : {
+          "Name" : "আঙ্গুর এসকা",
+          "Remedy" : "https://www.farmprogress.com/lime-sulfur-sprays-help-control-grape-black-measles",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়। প্রয়োজনে কপার এবং সালফারের স্প্রে করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fgrape_esca.JPG?alt=media&token=cfbbb6ec-ce7d-4ad1-807c-93fb6f1ac3eb"
+        },
+        "Grape Healthy" : {
+          "Name" : "সুস্থ",
+          "Remedy" : "https://www.shutterstock.com/search/grape+leaf",
+          "RemedyWord" : "গাছের ভালো খেয়াল রাখুন যাতে কোন ধরনের রোগ আক্রমণ করতে না পারে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fgrape_healthy.JPG?alt=media&token=5a5a97a3-91bd-4547-8581-eb7fc901a89b"
+        },
+        "Grape Leaf Blight (Isariopsis_Leaf_Spot)" : {
+          "Name" : "আঙ্গুর লিফ ব্লাইড",
+          "Remedy" : "https://homeguides.sfgate.com/treat-grapevine-fungus-47578.html",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fgrape_leaf_blight.JPG?alt=media&token=af203ed7-517a-4784-8e44-dbf0322fb36c"
+        }
+      }
+    },
+    "Not" : {
+      "Diseases" : {
+        "Apple Black Rot" : {
+          "Name" : "অ্যাপল ব্ল্যাক রট",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-3",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত ফলকে আলাদা করতে হবে। আলো এবং বায়ু সঞ্চালনের জন্য ভাল ব্যবস্থা করতে হবে। মৃত এবং রোগাক্রান্ত অঙ্গসমূহকে আলাদা করতে হবে।  ",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2F7a081a31-bbfa-4a43-8579-3353f6672f76___JR_FrgE.S%202861.JPG?alt=media&token=3d13a9f6-ccae-4e19-a6f2-b0c6f4045cae"
+        },
+        "Apple Scab" : {
+          "Name" : "অ্যাপল স্ক্যাব",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-fruit-crops/ipm-strategies-for-apple/apple-diseases-and-symptoms#section-1",
+          "RemedyWord" : "আগাছা পরিষ্কার করতে হবে এবং গাছকে ছত্রাক্মুক্ত করতে হবে",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2F0e90fe4a-e8b6-4186-9429-a9fea180af9a___FREC_Scab%203391.JPG?alt=media&token=d0536301-da9e-43f7-8e38-af0d27606eb0"
+        }
+      }
+    },
+    "Potato" : {
+      "Diseases" : {
+        "Potato Early Blight" : {
+          "Name" : "আলু আরলি ব্লাইড",
+          "Remedy" : "https://www.planetnatural.com/pest-problem-solver/plant-disease/early-blight/",
+          "RemedyWord" : "সুস্থ গাছ হতে সংগৃহীত আলু  বীজ ব্যবহার করতে হবে। ফসল উঠাবার পর আক্রান্ত গাছের পরিত্যক্ত অংশ সমূহ সংগ্রহ করে পুড়িয়ে ফেলতে হবে। যে জমিতে একবার রোগ হয় সেখানে পরপর ২/৩ বছর আলুর চাষ না করে অন্য ফসল চাষ করতে পারলে ভাল হয়। গাছে রোগ দেখা দিলে সঙ্গে সঙ্গে বোর্দোমিক্সার অথবা ডায়থেন এম ৪৫ স্প্রে করতে হবে। আলুর ক্ষেতের পাশে টমেটো ক্ষেত থাকলে উহাতেও স্প্রে করতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2FPotato_Early_blight.JPG?alt=media&token=3d33bb02-d37a-4d7e-bec6-c15e37a507cf"
+        },
+        "Potato Healthy" : {
+          "Name" : "সুস্থ",
+          "Remedy" : "https://www.shutterstock.com/search/grape+leaf",
+          "RemedyWord" : "গাছের ভালো খেয়াল রাখুন যাতে কোন ধরনের রোগ আক্রমণ করতে না পারে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fpotato_healthy.JPG?alt=media&token=b17bd24a-80e6-4a99-9627-1be7d99fdebd"
+        },
+        "Potato Late Blight" : {
+          "Name" : "আলু লেট ব্লাইড",
+          "Remedy" : "https://www.planetnatural.com/pest-problem-solver/plant-disease/late-blight/",
+          "RemedyWord" : "বর্ষা আরম্ভ হওয়ার আগে আগেই শুষ্ক আলু রোগমুক্ত এলাকা হতে বীজের জন্য সংগ্র করতে হবে। অনেক সময় বীজ আলু ভাদ্রের প্রখর রৌদ্রে একমাস ভাল করে শুকাতে হয়। এর ফলে আলুতে কোন প্রকার জীবাণু থাকলে রৌদ্র তাপে তা নষ্ট হয়ে যায়। যে সকল অঞ্চলে লেইট ব্লাইট রোগ প্রায়ই হয়। যে সকল স্থানে আলুর গাছ ৮-১০ সে.মি. হলেই উহাতে বোর্দোমিক্সার বা ডায়থেন এম-৪৫ ছিটাতে হয়। পরে ২০-২৫ দিন অন্তর অন্তর ছত্রাকনাশক নিয়মিতভাবে ছিটালে রোগাক্রমণের ভয় থাকে না। রিডোমিল ০.২% হারে স্প্রে করে এই রোগ নিয়ন্ত্রন করা যায়।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Fpotato_late_blight.JPG?alt=media&token=df898df5-db16-4a1b-a31b-a093454e149b"
+        }
+      }
+    },
+    "Tomato" : {
+      "Diseases" : {
+        "Tomato Bacterial Spot" : {
+          "Name" : "টমেটো ব্যাকটেরিয়াল স্পট",
+          "Remedy" : "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/",
+          "RemedyWord" : "গত বছর মরিচ চাষ হয়েছে এমন জমিতে টমেটো চাষ থেকে বিরত থাকুন। গাছে পরিমাণ মত পানি দিন। বাতাস চলাচলের ভালো ব্যবস্থা রাখুন। আগাছা রোধ করুন। কপার মিশ্রিত সার ব্যবহার করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_bacterial.JPG?alt=media&token=039ae722-035a-4056-bfb5-cf3c84c054a7"
+        },
+        "Tomato Early Blight" : {
+          "Name" : "টমেটো আরলি ব্লাইড",
+          "Remedy" : "https://www.thespruce.com/early-blight-on-tomato-plants-1402973",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়। প্রয়োজনে কপার এবং সালফারের স্প্রে করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_early_blight.JPG?alt=media&token=416af3cc-f032-4c8b-b049-5246f2320456"
+        },
+        "Tomato Healthy" : {
+          "Name" : "সুস্থ",
+          "Remedy" : "https://www.shutterstock.com/search/tomato+leaf",
+          "RemedyWord" : "গাছের ভালো খেয়াল রাখুন যাতে কোন ধরনের রোগ আক্রমণ করতে না পারে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_healthy.JPG?alt=media&token=c672b524-917d-4947-bff3-81fcf31fbdf4"
+        },
+        "Tomato Late Blight" : {
+          "Name" : "টমেটো লেট ব্লাইড",
+          "Remedy" : "https://www.thespruce.com/understanding-late-blight-disease-of-tomatoes-1402971",
+          "RemedyWord" : "যত তাড়াতাড়ি সম্ভব রোগাক্রান্ত গাছকে আলাদা করতে হবে। এই রোগ দ্রুত সংক্রমক, তাই নিকটস্থ কৃষি অধিদপ্তরে যোগাযোগ করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_late_blight.JPG?alt=media&token=dcd66214-b4eb-438b-9c18-b0ab3801830b"
+        },
+        "Tomato Leaf Mold" : {
+          "Name" : "টমেটো লিফ মল্ড",
+          "Remedy" : "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/",
+          "RemedyWord" : "গাছের আগাছা রোধ করুন। গাছে পানি দেওয়ার সময় পাতা যাতে না ভিজে সেদিকে খেয়াল রাখুন এবং পর্যাপ্ত পরিমাণে বাতাস চলাচলের ব্যবস্থা রাখুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_leaf_mold.JPG?alt=media&token=6aa39bc8-32c4-44e7-8e3c-a51e06c90034"
+        },
+        "Tomato Mosaic Virus" : {
+          "Name " : "টমেটো মোজাইক ভাইরাস",
+          "Remedy" : "http://vikaspedia.in/agriculture/crop-production/integrated-pest-managment/ipm-for-vegetables/ipm-strategies-for-tomato/tomato-diseases-and-symptoms#section-8",
+          "RemedyWords" : "এ রোগ দেখা দিলে রোগাক্রান্ত গাছকে পাতা ও শিকড়সহ আলাদা করে ফেলতে হবে। আলাদা করার পর সাবান দিয়ে হাত দুয়ে নিতে হবে, কেননা অই জীবাণু থেকে খুব দ্রুত রোগ ছড়িয়ে পরবে। বাগানে সাবান, পানি এবং দুধ মিশ্রিত তরলের স্প্রে করতে হবে। ",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_mosaic.JPG?alt=media&token=739bfc71-9b30-4b8b-98f0-daa3194cc7e2"
+        },
+        "Tomato Septoria Leaf Spot" : {
+          "Name" : "টমেটো সেপটোরিয়া লিফ স্পট",
+          "Remedy" : "https://www.thespruce.com/identifying-and-controlling-septoria-leaf-spot-of-tomato-1402974",
+          "RemedyWord" : "রোগাক্রান্ত গাছটিকে দূরে সরিয়ে নিন কেননা এর থেকে আশেপাশের সুস্থ টমেটো গাছ এমনকি আলু গাছেও এ রোগের বিস্তার হতে পারে। রোগাক্রান্ত গাছের গোড়ায় পানি দিন এবং পাতায় পানি দেওয়া থেকে বিরত থাকুন। পটাশিয়াম বাইকার্বনেট অথবা কপার মিশ্রিত সার প্রয়োগ করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_septoria.JPG?alt=media&token=5015e506-d7ff-408a-8426-a1af1316a26e"
+        },
+        "Tomato Spider Mite" : {
+          "Name" : "টমেটো স্পাইডার মাইট",
+          "Remedy" : "https://www.planetnatural.com/pest-problem-solver/houseplant-pests/spider-mite-control/",
+          "RemedyWord" : "গাছের পাতা থেকে দুলো ময়লা সরাতে হবে। কীটনাশক ব্যবহার করতে হবে। রোগাক্রান্ত গাছগুলো সনাক্ত করে আলাদা করে ফেলতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_spider_mites.JPG?alt=media&token=24fdfc4a-619c-4ea9-8515-6298f24218e0"
+        },
+        "Tomato Target Spot" : {
+          "Name" : "টমেটো র্টাগেট স্পট",
+          "Remedy" : "https://www.gardeningknowhow.com/edible/vegetables/tomato/target-spot-on-tomatoes.htm",
+          "RemedyWord" : "গাছের পাতা থেকে দুলো ময়লা সরাতে হবে। কীটনাশক ব্যবহার করতে হবে। রোগাক্রান্ত গাছগুলো সনাক্ত করে আলাদা করে ফেলতে হবে।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_target_spot.JPG?alt=media&token=62c2f88e-5a27-4268-9977-139529fca21e"
+        },
+        "Tomato Yellow Leaf Curl Virus" : {
+          "Name" : "টমেটো ইয়লো লিফ",
+          "Remedy" : "https://www.farmprogress.com/controlling-tomato-yellow-leaf-curl-virus",
+          "RemedyWord" : "পর্যাপ্ত পরিমাণে বাতাস চলাচলের জায়গা রাখুন, এতে করে গাছ শুষ্ক থাকবে। চারার মধ্যবর্তী দূরত্ব বেশী রাখুন, যাতে রোগাক্রান্ত চারা সহজেই আলাদা করে ফেলা যায়। প্রয়োজনে কপার এবং সালফারের স্প্রে করুন।",
+          "image_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/Sample%20Pictures%2Ftomato_yellow_leaf_curl_virus.JPG?alt=media&token=fbf5e1d0-893d-4a41-94ed-e44d6e878deb"
+        }
+      }
+    }
+  },
+  "last_done" : 298,
+  "last_entry" : 298,
+  "last_name" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/2019.04.17.02.56.06.jpg?alt=media&token=6eff1925-6d3b-4c7d-a12c-e23cb56db2c3",
+  "last_url" : "https://firebasestorage.googleapis.com/v0/b/diseasedetect-e39f6.appspot.com/o/2019.04.17.02.56.06.jpg?alt=media&token=6eff1925-6d3b-4c7d-a12c-e23cb56db2c3",
+  "prediction" : {
+    "pred" : "!__পাতা নেই ",
+    "pred_eng" : "Not Leaf",
+    "top_4" : [ "Not Leaf", "Corn Northern Leaf Blight", "Corn Cercospora Leaf Spot Gray Leaf Spot", "Corn Common Rust" ]
+  },
+  "result_url" : "a",
+  "sa" : "asd"
+}

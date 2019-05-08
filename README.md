@@ -7,13 +7,14 @@ This projects consists of two parts.
 
 # Project Overview
 Overall System Architecture:
-![Alt text](Figures/system.png?raw=true "Title")
-![Screenshot](system.png)
+
+![Architecture](Figures/system.png?raw=true "Architecture")
 
 
 # Android App
 Android Screenshots:
-![Screenshot](screenshots.png)
+
+![Screenshot](Figures/screenshots.png)
 
 
 # Cloud Server
@@ -27,14 +28,10 @@ install flask via pip and all the dependencies.
 pip install flask
 ```
 
-License
-----
-
-MIT
 
 
 
-# RiceDiseaseDtection_bdFarmer
+# Running Environment
 
 #Docker 
 # Assuming an Ubuntu Docker image
@@ -135,4 +132,8 @@ source ~/.bashrc
 
 
 
+License
+----
+
+MIT
 
