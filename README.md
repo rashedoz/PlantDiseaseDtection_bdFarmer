@@ -8,10 +8,12 @@ This projects consists of two parts.
 # Project Overview
 Overall System Architecture:
 ![Alt text](Figures/system.png?raw=true "Title")
+![Screenshot](system.png)
 
 
 # Android App
 Android Screenshots:
+![Screenshot](screenshots.png)
 
 
 # Cloud Server
