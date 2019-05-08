@@ -4,8 +4,10 @@ This projects consists of two parts.
 
   - Cloud ML Sererver
   - Android App
+
 # Project Overview
 Overall System Architecture:
+![Alt text](Figures/system.png?raw=true "Title")
 
 
 # Android App
