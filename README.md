@@ -1,3 +1,35 @@
+# Plant Disease Detection
+
+This projects consists of two parts.
+
+  - Cloud ML Sererver
+  - Android App
+# Project Overview
+Overall System Architecture:
+
+
+# Android App
+Android Screenshots:
+
+
+# Cloud Server
+There are two different servers available. Either one of the server running needs to be running.
+  - Django based Server
+  - Flask based server
+  
+# Flask Server
+install flask via pip and all the dependencies.
+```sh
+pip install flask
+```
+
+License
+----
+
+MIT
+
+
+
 # RiceDiseaseDtection_bdFarmer
 
 #Docker 
