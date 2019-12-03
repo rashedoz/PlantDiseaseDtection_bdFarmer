@@ -17,6 +17,7 @@ Android Screenshots:
 ![Screenshot](Figures/screenshots.png)
 
 
+
 # Cloud Server
 There are two different servers available. Either one of the server running needs to be running.
   - Django based Server
@@ -27,6 +28,16 @@ install flask via pip and all the dependencies.
 ```sh
 pip install flask
 ```
+# Flask Server running model
+Running flask model->
+1. Start and run google instance.
+2. Activate project env "source activate tf_cpu"
+3. cd to Flask Server folder.
+3. Run "python3 flask\ model.py"
+4. Goto instance ip:5000 (e.g http://35.244.41.56:5000/)
+5. Keep the tab open all the time.
+6. New images are sent to firebase.
+7. As new images are sent the page will auto reload and the prediction will be sent to firebase as output.
 
 
 
