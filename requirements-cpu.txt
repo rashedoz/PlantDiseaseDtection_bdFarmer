@@ -6,7 +6,7 @@ Babel==2.6.0
 backcall==0.1.0
 banal==0.4.0
 beautifulsoup4==4.6.3
-bleach==3.0.2
+bleach==3.3.0
 bs4==0.0.1
 CacheControl==0.12.5
 cachetools==3.1.0
