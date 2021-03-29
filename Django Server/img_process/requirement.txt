@@ -104,7 +104,7 @@ pyasn1-modules==0.2.4
 pycparser==2.19
 pydot==1.4.1
 pydotplus==2.0.2
-Pygments==2.2.0
+Pygments==2.7.4
 PyMI==1.0.4
 pyOpenSSL==18.0.0
 pyparsing==2.3.1
