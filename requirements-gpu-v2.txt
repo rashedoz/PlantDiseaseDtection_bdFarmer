@@ -9,7 +9,7 @@ chardet==3.0.4
 colorama==0.4.1
 cycler==0.10.0
 decorator==4.3.0
-Django==2.1.5
+Django==2.2.24
 entrypoints==0.3
 firebase-admin==2.15.1
 gast==0.2.2
