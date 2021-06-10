@@ -1,4 +1,4 @@
-Django==2.1.5
+Django==2.2.24
 Keras==2.2.4
 Keras-Applications==1.0.6
 Keras-Preprocessing==1.0.5
