@@ -25,7 +25,7 @@ matplotlib==3.0.2
 mkl-fft==1.0.10
 mkl-random==1.0.2
 numpy==1.15.4
-opencv-python==4.0.0.21
+opencv-python==3.4.7.28
 parso==0.3.1
 pexpect==4.6.0
 pickleshare==0.7.5
