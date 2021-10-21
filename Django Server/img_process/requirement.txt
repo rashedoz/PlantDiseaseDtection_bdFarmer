@@ -3,7 +3,7 @@ alembic==1.0.5
 ann-visualizer==2.5
 asn1crypto==0.24.0
 astor==0.7.1
-Babel==2.6.0
+Babel==2.9.1
 backcall==0.1.0
 banal==0.4.0
 beautifulsoup4==4.6.3
